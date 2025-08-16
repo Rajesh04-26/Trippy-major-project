@@ -1,0 +1,94 @@
+<% layout("/layouts/boilerplate") -%>
+
+<body class="homepage-bg">
+
+  <!-- Hero Carousel Section -->
+<section id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <% const heroImages = ["hero1.jpg", "hero2.jpg", "hero3.jpg", "hero4.jpg", "hero5.jpg"]; %>
+    <% heroImages.forEach((img, index) => { %>
+      <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+        <div class="hero-slide" style="background-image: url('/images/<%= img %>');">
+          <div class="hero-caption text-center text-white">
+            <h1>Explore the whole world<br>and enjoy its beauty</h1>
+            <p>Find and write about your experiences around the world.</p>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+  </section>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</section>
+
+  <!-- Popular Places (Carousel Version) -->
+<section class="container my-5">
+  <h2 class="text-center mb-4">Popular Places</h2>
+  <div id="popularPlacesCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <% const popularPlaces = [
+        { name: "Dubai", img: "img1.jpg" },
+        { name: "Bali", img: "img2.jpg" },
+        { name: "Barcelona", img: "img3.jpg" },
+        { name: "Paris", img: "img4.jpg" },
+        { name: "Switzerland", img: "img5.jpg" },
+        { name: "Maldives", img: "img6.jpg" }
+      ]; %>
+
+      <% for (let i = 0; i < popularPlaces.length; i += 3) { %>
+        <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+          <div class="row justify-content-center">
+            <% for (let j = i; j < i + 3 && j < popularPlaces.length; j++) { %>
+              <div class="col-md-4 mb-3">
+                <div class="card transparent-card h-100 text-center">
+                  <img src="/images/<%= popularPlaces[j].img %>" class="card-img-top" alt="<%= popularPlaces[j].name %>">
+                  <div class="card-body">
+                    <h5 class="card-title"><%= popularPlaces[j].name %></h5>
+                  </div>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#popularPlacesCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#popularPlacesCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</section>
+
+  <!-- Booking Section with Book Now Button -->
+<section class="container my-5">
+  <h3 class="text-center mb-4">Book Tickets and Go Now!</h3>
+  <div id="bookingCarousel" class="carousel slide booking-carousel" data-bs-ride="carousel">
+    <div class="carousel-inner rounded shadow">
+      <% const bookingImages = ["book1.jpg", "book2.jpg", "book3.jpg"]; %>
+      <% bookingImages.forEach((img, index) => { %>
+        <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+          <img src="/images/<%= img %>" class="d-block w-100" alt="Booking <%= index + 1 %>" />
+        </div>
+      <% }) %>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#bookingCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#bookingCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon"></span>
+    </button>
+  </div>
+</section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

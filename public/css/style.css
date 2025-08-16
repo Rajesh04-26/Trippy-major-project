@@ -1,0 +1,513 @@
+body {
+    background-color: azure;
+    font-family: "Plus Jakarta Sans", sans-serif !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+.navbar {
+    height: 5rem;
+    background-color: white;
+    z-index: 1030; 
+}
+
+
+.fa-location-dot {
+    color: #ef2633;
+    font-size: 2rem;
+}
+
+.nav-link {
+    color: #222222 !important;
+}
+
+.nav-link:hover {
+  text-decoration: underline;
+}
+
+.nav-link-head:hover {
+   opacity: 0.9;
+   text-decoration: none;
+   transform: scale(1.05);
+}
+
+
+.f-info {
+    text-align: center;
+    height: 7rem;
+    background-color: #ebebeb;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: space-evenly;
+}
+
+.f-info-links, .f-info-socials, .f-info-brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.f-info-socials i {
+    margin-right: 1rem;
+    font-size: 1.3rem;
+}
+
+.f-info-links a , .f-info-socials a {
+    text-decoration: none;
+    color: #222222;
+}
+
+.f-info-links a:hover {
+    text-decoration: underline;
+    color: cadetblue;
+}
+
+.f-info-socials i:hover {
+    color: cadetblue;
+}
+
+.card {
+    height: 15rem;
+    display: flex;
+    flex-direction: column;
+    border: none !important;
+    border-radius: 1rem;
+}
+
+.card-img-top {
+    height: 60%;
+    object-fit: cover !important;
+    border-radius: 1rem 1rem 0 0;
+}
+
+.card-body {
+    height: 40%;
+    padding: 0;
+}
+
+.card-text p {
+    font-weight: 400 !important;
+}
+
+.listing-card {
+    text-decoration: none;
+}
+
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+
+.row {
+    padding : 2.5rem 0 2.5rem 0;
+    
+}
+
+.btn :hover {
+    background-color: #a49a9a;
+    
+}
+
+.show-img {
+    border-radius: 10px;
+    height: 350px !important;
+    width: 90vh !important;
+}
+
+.btns {
+    display: flex;
+}
+
+/* home.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.homepage-bg {
+  background: rgba(180, 240, 255, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+
+/* Hero Carousel Slides */
+#heroCarousel {
+  position: relative;
+}
+
+.hero-slide {
+  height: 85vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+/* Set slide backgrounds using nth-child */
+.carousel-inner .carousel-item:nth-child(1) .hero-slide {
+  background-image: url('/images/hero1.jpg');
+}
+.carousel-inner .carousel-item:nth-child(2) .hero-slide {
+  background-image: url('/images/hero2.jpg');
+}
+.carousel-inner .carousel-item:nth-child(3) .hero-slide {
+  background-image: url('/images/hero3.jpg');
+}
+.carousel-inner .carousel-item:nth-child(4) .hero-slide {
+  background-image: url('/images/hero4.jpg');
+}
+.carousel-inner .carousel-item:nth-child(5) .hero-slide {
+  background-image: url('/images/hero5.jpg');
+}
+
+/* Caption inside slide */
+.hero-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  text-align: center;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  max-width: 900px;
+  width: 90%;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+}
+
+.hero-caption h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.hero-caption p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Optional: Fade-in on carousel */
+.carousel-fade .carousel-item {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-fade .carousel-item.active {
+  opacity: 1;
+}
+
+/* Search Box */
+.search-box input,
+.search-box select {
+  border-radius: 10px;
+}
+
+.search-box button {
+  border-radius: 10px;
+}
+
+
+/* Popular Places */
+.transparent-card {
+  height: 300px; 
+  background: rgba(0, 255, 255, 0.08);  
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);        
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 255, 255, 0.05);
+}
+
+.transparent-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 25px rgba(0, 255, 255, 0.2);
+}
+
+.transparent-card img {
+  height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+/* Booking carousel */
+.booking-carousel img {
+  max-height: 500px;
+  object-fit: cover;
+}
+
+/* Review */
+.star-rating {
+  font-size: 3rem;
+  display: inline-block;
+  position: relative;
+}
+
+.star {
+  display: inline-block;
+  color: #ccc;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.star::before {
+  content: '★';
+}
+
+.star.full::before {
+  color: gold;
+  text-shadow: 0 0 8px gold;
+}
+
+.star.half::before {
+  background: linear-gradient(90deg, gold 50%, #ccc 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 6px gold;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+.fa-star,
+  .fa-star-half-alt,
+  .far.fa-star {
+    margin-right: 2px;
+  }
+
+.review-card {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+}
+
+.reviewer-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.delete-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  text-decoration: underline;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+  text-decoration: underline;
+  font-size: 0.95rem;
+  color: gold; 
+  outline: none;
+}
+
+/* LOGIN PAGE */
+.login-page-container {
+  min-height: calc(100vh - 12rem); /* accounts for header + footer height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Glassmorphic Login Card */
+.login-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Title */
+.login-card h1 {
+  text-align: center;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+/* Labels */
+.login-card label {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Inputs */
+.login-card .form-control {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.login-card .form-control:focus {
+  background: rgba(255, 255, 255, 1);
+  border-color: #4facfe;
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.5);
+}
+
+/* Button */
+.login-card .btn-success {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.login-card .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SIGNUP PAGE */
+.signup-page-container {
+  min-height: calc(100vh - 12rem); /* Keeps space for header & footer */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* Card styling */
+.signup-card {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 450px;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+/* Title */
+.signup-card h1 {
+  text-align: center;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+/* Labels */
+.signup-card label {
+  font-weight: 500;
+  color: #333;
+}
+
+/* Inputs */
+.signup-card .form-control {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.signup-card .form-control:focus {
+  background: rgba(255, 255, 255, 1);
+  border-color: #4facfe;
+  box-shadow: 0 0 8px rgba(79, 172, 254, 0.5);
+}
+
+/* Button */
+.signup-card .btn-success {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.signup-card .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Map */
+
+#map { 
+  height: 300px;
+  width: 90vh;
+}
+
+/* Button styles for login/logout */
+.btn-login, .btn-logout {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 50px;    
+  text-decoration: none;  
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-login {
+  background-color: #5699fc !important;   
+  color: white !important;
+}
+
+.btn-logout {
+  background-color: #3bcefa !important;   
+  color: black !important;
+}
+
+.btn-login:hover, .btn-logout:hover {
+  opacity: 0.9;
+  text-decoration: none;
+  transform: scale(1.05);
+}
