@@ -1,0 +1,125 @@
+/* show.css */
+
+/* General card styling */
+.show-card {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Listing image */
+.show-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Buttons */
+.btns {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btns .btn {
+  min-width: 100px;
+}
+
+/* Star rating */
+.star-rating .star {
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #ccc;
+  margin-right: 5px;
+}
+
+.star-rating .star.checked {
+  color: #ffc107;
+}
+
+/* Review card */
+.review-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  padding: 15px;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.delete-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.delete-btn:hover {
+  background: #c82333;
+}
+
+/* Map */
+#map {
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+/* Review form textarea */
+#comment {
+  resize: vertical;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+  .show-card h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+  }
+
+  .btns {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  #map {
+    height: 250px;
+  }
+
+  .review-card {
+    padding: 10px;
+  }
+
+  .star-rating .star {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .show-card h3 {
+    font-size: 1.3rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+  }
+
+  #map {
+    height: 200px;
+  }
+
+  .star-rating .star {
+    font-size: 1.2rem;
+  }
+}
