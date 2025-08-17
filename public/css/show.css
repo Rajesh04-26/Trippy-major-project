@@ -15,7 +15,7 @@
 /* Listing image */
 .show-img {
   width: 100%;
-  height: 350px;
+  height: 85vh;
   border-radius: 8px;
   object-fit: cover;
   margin: 10px 0;

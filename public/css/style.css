@@ -205,15 +205,6 @@ body, html {
   opacity: 1;
 }
 
-/* Search Box */
-.search-box input,
-.search-box select {
-  border-radius: 10px;
-}
-
-.search-box button {
-  border-radius: 10px;
-}
 
 
 /* Popular Places */
