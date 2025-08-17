@@ -119,12 +119,6 @@ body {
     
 }
 
-.show-img {
-    border-radius: 10px;
-    height: 350px !important;
-    width: 90vh !important;
-}
-
 .btns {
     display: flex;
 }
