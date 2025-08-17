@@ -1,27 +1,26 @@
-/* General card styling */
 .show-card {
-  display: flex;             
-  flex-direction: column; 
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;    
+  justify-content: center; 
   text-align: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   padding: 15px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+
 /* Listing image */
 .show-img {
-  width: 100%;
-  max-width: 350px;
-  height: auto;
-  max-height: 200px;
+  width: 300px;            
+  height: 250px;           
   border-radius: 8px;
-  margin: 10px auto; 
-  display: block;
-  object-fit: cover; 
+  display: block;           
+  margin: 10px auto;        
+  object-fit: cover;        
 }
+
 
 /* Buttons */
 .btns {
