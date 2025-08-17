@@ -1,5 +1,7 @@
 /* General card styling */
 .show-card {
+  display: flex;             
+  flex-direction: column; 
   align-items: center;
   text-align: center;
   margin-top: 20px;
@@ -11,10 +13,14 @@
 
 /* Listing image */
 .show-img {
-  width: 400px;
-  height: 300px;
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  max-height: 300px;
   border-radius: 8px;
-  margin: 10px 0;
+  margin: 10px auto; 
+  display: block;
+  object-fit: cover; 
 }
 
 /* Buttons */
