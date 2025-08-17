@@ -14,9 +14,9 @@
 /* Listing image */
 .show-img {
   width: 100%;
-  max-width: 400px;
+  max-width: 350px;
   height: auto;
-  max-height: 300px;
+  max-height: 200px;
   border-radius: 8px;
   margin: 10px auto; 
   display: block;
