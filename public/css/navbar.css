@@ -1,0 +1,39 @@
+/* Navbar container */
+.navbar {
+    height: 5rem;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 1030; 
+    backdrop-filter: blur(10px); 
+}
+
+/* Nav links */
+.nav-link, .nav-link-head {
+    color: #ffffff !important;
+    transition: 0.3s;
+}
+
+.nav-link[href="/"], 
+.nav-link[href="/listings"] {
+    transition: 0.3s;
+}
+
+.nav-link[href="/"]:hover,
+.nav-link[href="/listings"]:hover {
+    color: #00ffff !important; 
+    transform: scale(1.05);
+    text-decoration: none;
+}
+
+.nav-link[href="/signup"]:hover,
+.nav-link[href="/login"]:hover,
+.nav-link[href="/listings/new"]:hover,
+.nav-link.btn-logout:hover {
+    color: #00ffff !important; 
+    transform: scale(1.02);
+}
+
+/* Brand icon */
+.fa-plane-departure {
+    color: white !important;
+    font-size: 2rem;
+}

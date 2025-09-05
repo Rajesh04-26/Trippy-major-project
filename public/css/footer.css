@@ -1,0 +1,68 @@
+/* Custom CSS for Footer */
+    .footer-modern-ejs {
+        background-color: rgba(0, 0, 0, 0.85); 
+        color: #fff;
+        font-size: 0.9em;
+        padding-top: 40px; 
+        padding-bottom: 20px;
+    }
+
+    .footer-modern-ejs h4 {
+        color: #ffffff;
+        margin-bottom: 1.5rem; 
+        font-size: 1.2em;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 10px;
+    }
+
+    /* Logo Styling */
+    .footer-logo-ejs img {
+        max-width: 150px; 
+        height: auto;
+        filter: brightness(0) invert(1); 
+        margin-bottom: 1rem;
+    }
+
+    /* Link Styling */
+    .footer-modern-ejs .list-unstyled a,
+    .footer-modern-ejs .footer-bottom-links a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-modern-ejs .list-unstyled a:hover,
+    .footer-modern-ejs .footer-bottom-links a:hover {
+        color: #c5dcff;
+    }
+
+    /* Social Media Icons */
+    .footer-modern-ejs .social-icons-ejs a {
+        color: #fff;
+        font-size: 1.8em;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-modern-ejs .social-icons-ejs a:hover {
+        color: #0d6efd; 
+    }
+
+    /* Feedback Form Styling */
+    .footer-modern-ejs .form-control-custom {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #fff;
+    }
+
+    .footer-modern-ejs .form-control-custom::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* Bottom Bar Styling */
+    .footer-bottom-ejs {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 20px;
+        margin-top: 30px;
+        color: rgba(255, 255, 255, 0.7);
+    }

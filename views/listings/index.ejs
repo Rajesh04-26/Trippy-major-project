@@ -1,20 +1,30 @@
 <% layout("/layouts/boilerplate") -%>
+<link rel="stylesheet" href="/css/style.css" />
 
-<div class="row">
-  <% for(let listing of allListings) { %>
-    <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-      <a href="/listings/<%= listing._id %>" class="listing-card">
-      <div class="card h-100 w-100 shadow-sm">
-        <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img">
-        <div class="card-body">
-          <div class="card-img-overlay"></div>
-          <p class="card-text"><b><%= listing.title %></b><br>
-            &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %> / night<br>
-            <%= listing.location %>
-          </p>
-        </div>
+<div class="listings-container row g-4">
+  <% if(allListings.length > 0) { %>
+    <% for(let listing of allListings) { %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <% if(currUser) { %>
+          <a href="/listings/<%= listing._id %>" class="listing-card text-decoration-none">
+        <% } else { %>
+          <a href="/login" class="listing-card text-decoration-none">
+        <% } %>
+            <div class="card">
+              <img src="<%= listing.image.url %>" class="card-img-top" alt="listing_img">
+              <div class="card-body">
+                <div class="card-img-overlay"></div>
+                <p class="card-text">
+                  <b><%= listing.title %></b><br>
+                  &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") : "0" %> / night<br>
+                  <%= listing.location %>
+                </p>
+              </div>
+            </div>
+          </a>
       </div>
-      </a>
-    </div>
+    <% } %>
+  <% } else { %>
+    <p class="text-center">No listings available at the moment.</p>
   <% } %>
 </div>

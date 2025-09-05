@@ -85,10 +85,18 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.render("listings/home.ejs");
-});
+const Listing = require('./models/listing.js');
 
+app.get("/", async (req, res) => {
+  try {
+    const allListings = await Listing.find({});
+    res.render("listings/home.ejs", { allListings });
+  } catch (e) {
+    console.log(e);
+    req.flash("error", "Cannot load listings");
+    res.render("listings/home.ejs", { allListings: [] });
+  }  
+});
 
  //Listings routes
 app.use("/listings" , listingRouter);

@@ -1,47 +1,52 @@
 const express = require('express');
 const router = express.Router();
 const asyncWrap = require("../utils/asyncWrap.js");
-const { isLoggedIn, isOwner, validateListing} = require("../middleware.js");
+const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 const listingController = require("../controllers/listings.js");
-const multer  = require('multer');
-const { storage } = require('../cloudConfig.js')
+const multer = require('multer');
+const { storage } = require('../cloudConfig.js');
 const upload = multer({ storage });
 
-
+// INDEX Route
 router.route("/")
-//Index Route
-.get(asyncWrap (listingController.index))
+  .get(asyncWrap(listingController.index))
 
-//Create Route
-.post(isLoggedIn, 
-    upload.single('listing[image]'), 
+  // CREATE Route
+  .post(
+    isLoggedIn,
+    upload.single('listing[image]'),
     validateListing,
-    asyncWrap(listingController.createNewListing));
+    asyncWrap(listingController.createNewListing)
+  );
 
+// NEW Route
+router.get("/new", isLoggedIn, listingController.newForm);
 
-//New Route
-router.get("/new",isLoggedIn , listingController.newForm);
+// SEARCH Route (NEW)
+router.post("/search", asyncWrap(listingController.searchListings));
 
-
+// LISTING SPECIFIC ROUTES
 router.route("/:id")
-//Show Route
-.get(asyncWrap(listingController.showListing))
+  // SHOW Route
+  .get(asyncWrap(listingController.showListing))
 
-//Update Route
-.put(isLoggedIn, 
-    isOwner, 
-    upload.single('listing[image]'), 
+  // UPDATE Route
+  .put(
+    isLoggedIn,
+    isOwner,
+    upload.single('listing[image]'),
     validateListing,
-    asyncWrap(listingController.updateListing))
+    asyncWrap(listingController.updateListing)
+  )
 
-//Delete Route
-.delete(isLoggedIn, 
-    isOwner, 
-    asyncWrap(listingController.deleteListing));
+  // DELETE Route
+  .delete(
+    isLoggedIn,
+    isOwner,
+    asyncWrap(listingController.deleteListing)
+  );
 
-
-//Edit Route
+// EDIT Route
 router.get("/:id/edit", isLoggedIn, isOwner, asyncWrap(listingController.editListing));
-
 
 module.exports = router;

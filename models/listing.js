@@ -11,38 +11,45 @@ const listingSchema = new Schema({
     type: String,
   },
   image: {
-    url : String,
+    url: String,
     filename: String,
   },
   price: Number,
   location: String,
   country: String,
   reviews: [
-  {
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Review",
+    ref: "User",
   },
-],
-owner: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "User",
-},
-geometry: {
-  type: {
-      type: String, 
-      enum: ['Point'], 
-      required: true
+  geometry: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      required: true,
     },
     coordinates: {
       type: [Number],
-      required: true
+      required: true,
     },
-},
+  },
+  bookings: [
+    {
+      startDate: { type: Date, required: true },
+      endDate: { type: Date, required: true },
+      guests: { type: Number, required: true },
+    },
+  ],
 });
 
 listingSchema.post("findOneAndDelete", async (listing) => {
-  if(listing) {
-    await Review.deleteMany({ _id : { $in: listing.reviews }});
+  if (listing) {
+    await Review.deleteMany({ _id: { $in: listing.reviews } });
   }
 });
 

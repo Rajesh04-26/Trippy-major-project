@@ -1,0 +1,100 @@
+/* Star Rating */
+.star-rating {
+  font-size: 3rem;
+  display: inline-block;
+  position: relative;
+}
+
+.star {
+  display: inline-block;
+  color: #ccc;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.star::before {
+  content: '★';
+}
+
+.star.full::before {
+  color: gold;
+  text-shadow: 0 0 8px gold;
+}
+
+.star.half::before {
+  background: linear-gradient(90deg, gold 50%, #ccc 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-shadow: 0 0 6px gold;
+}
+
+.star:hover {
+  transform: scale(1.2);
+}
+
+/* Review Card */
+.review-card {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.review-card:hover {
+  transform: translateY(-3px);
+}
+
+.reviewer-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Delete Button */
+.delete-btn {
+  background: none;
+  border: none;
+  color: inherit;
+  text-decoration: underline;
+  font-size: 0.85rem;
+  padding: 6px 8px;
+  margin: 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover,
+.delete-btn:focus {
+  text-decoration: underline;
+  font-size: 0.95rem;
+  color: gold; 
+  outline: none;
+}
+
+/* Review Form Textarea */
+#comment {
+  resize: vertical;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .star-rating {
+    font-size: 2.5rem;
+  }
+  .review-card {
+    padding: 10px;
+  }
+  .reviewer-name {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .star-rating {
+    font-size: 2rem;
+  }
+  .reviewer-name {
+    font-size: 0.95rem;
+  }
+}
