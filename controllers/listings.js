@@ -78,8 +78,6 @@ module.exports.deleteListing = async (req, res) => {
   res.redirect("/listings");
 };
 
-// NEW: Search Listings
-
 module.exports.searchListings = async (req, res) => {
   const { country, location } = req.body;
 
@@ -97,4 +95,20 @@ module.exports.searchListings = async (req, res) => {
   const filteredListings = await Listing.find(filter);
 
   res.render("listings/index.ejs", { allListings: filteredListings });
+};
+
+
+module.exports.filterByPlace = async (req, res) => {
+  const { place } = req.params;
+  
+  const listings = await Listing.find({
+    location: { $regex: place, $options: "i" }
+  });
+
+  if (listings.length === 0) {
+    req.flash("error", `No listings found for ${place}`);
+    return res.redirect("/listings");
+  }
+
+  res.render("listings/index.ejs", { allListings: listings });
 };

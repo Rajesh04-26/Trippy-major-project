@@ -25,6 +25,9 @@ router.get("/new", isLoggedIn, listingController.newForm);
 // SEARCH Route (NEW)
 router.post("/search", asyncWrap(listingController.searchListings));
 
+// Popular Places
+router.get("/place/:place", asyncWrap(listingController.filterByPlace));
+
 // LISTING SPECIFIC ROUTES
 router.route("/:id")
   // SHOW Route
