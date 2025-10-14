@@ -16,6 +16,11 @@ body {
     padding: 2.5rem 0;
 }
 
+.login-card .row,
+.signup-card .row {
+    padding: 0 !important;
+}
+
 /* Buttons */
 .btn {
     color: #fff;
@@ -24,12 +29,15 @@ body {
     transition: 0.3s;
 }
 
+.btn-success {
+    background-color: #28a745;
+}
+
 .btn:hover {
     background-color: #adb0b0; 
     color: #000;
 }
 
-/* Flex buttons container */
 .btns {
     display: flex;
 }
@@ -49,7 +57,7 @@ body {
 .listings-container .card {
     position: relative;
     width: 100%;
-    padding-top: 100%; /* 1:1 aspect ratio */
+    padding-top: 100%; 
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255,255,255,0.2);
     border-radius: 15px;

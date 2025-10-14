@@ -10,7 +10,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: 'LuxeNest_DEV',
+    folder: 'Trippy_DEV',
     allowedFormats: ["png", "jpg", "jpeg"], 
   },
 });

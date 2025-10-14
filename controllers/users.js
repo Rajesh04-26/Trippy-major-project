@@ -5,7 +5,6 @@ module.exports.renderSignup = (req, res) => {
     res.render('users/signup.ejs');
 };
 
-
 module.exports.signup = async (req, res) => {
     try {
         let { username, email, password } = req.body;

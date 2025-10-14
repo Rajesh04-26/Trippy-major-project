@@ -4,101 +4,220 @@
 
 <script>
   const mapToken = "<%= process.env.MAP_TOKEN %>";
-  const listing = <%-JSON.stringify(listing) %>;
+  const listing = <%- JSON.stringify(listing) %>;
 </script>
 
-<div class="row justify-content-center">
+<div class="container">
   <!-- Listing Card -->
-  <div class="col-12 col-md-10 col-lg-8">
-    <div class="card show-card mb-3">
-      <h3 class="text-center"><%= listing.title %></h3>
-      <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_img">
+  <div class="card show-card mb-4">
+    <div class="left-col">
+      <img src="<%= listing.image?.url || '/images/placeholder.jpg' %>" class="show-img" alt="listing_img">
+
       <div class="card-body">
-        <p class="card-text">Owned by: <i><%= listing.owner.username %></i></p>
-        <p class="card-text"><%= listing.description %></p>
-        <p class="card-text">&#8377; <%= listing.price.toLocaleString("en-IN") %> / night</p>
-        <p class="card-text"><%= listing.location %></p>
-        <p class="card-text"><%= listing.country %></p>
+        <h3><%= listing.title %></h3>
+        <p>Owned by: <i><%= listing.owner.username %></i></p>
+        <p class="price">&#8377; <%= listing.price.toLocaleString("en-IN") %> / night</p>
+        <p><%= listing.description %></p>
+        <p><%= listing.location %>, <%= listing.country %></p>
       </div>
+
+      <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
+        <div class="btns">
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary">Edit</a>
+          <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+            <button class="btn btn-dark">Delete</button>
+          </form>
+        </div>
+      <% } %>
     </div>
 
-    <!-- Edit/Delete Buttons -->
-    <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
-      <div class="d-flex justify-content-center mb-3 flex-wrap gap-2">
-        <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger">Edit</a>
-        <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-          <button class="btn btn-dark">Delete</button>
-        </form>
-      </div>
-    <% } %>
+    <!-- Right Column: Gallery -->
+    <div class="right-col">
+      <% if(listing.gallery && listing.gallery.length > 0) { %>
+        <% listing.gallery.forEach((img, index) => { %>
+          <img src="<%= img.url %>" class="gallery-img" alt="gallery_img_<%= index %>">
+        <% }) %>
+      <% } else { %>
+        <% for(let i=0; i<6; i++){ %>
+          <img src="/images/placeholder.jpg" class="gallery-img" alt="placeholder">
+        <% } %>
+      <% } %>
+    </div>
+  </div>
 
-    <!-- Review Form -->
-    <% if(currUser) { %>
-      <hr />
-      <h2 class="text-center">Leave a Rating</h2>
-      <form method="POST" action="/listings/<%=listing._id%>/reviews" class="needs-validation" novalidate>
-        <div class="star-rating d-flex justify-content-center mb-2" id="starRating">
-          <span class="star" data-value="1"></span>
-          <span class="star" data-value="2"></span>
-          <span class="star" data-value="3"></span>
-          <span class="star" data-value="4"></span>
-          <span class="star" data-value="5"></span>
-        </div>
-        <p class="text-center">Your rating: <span id="ratingValue">0</span> / 5</p>
-        <input type="hidden" name="review[rating]" id="ratingInput" value="0">
+  <!-- ================= Tabs: Overview / Itinerary / Inclusions ================= -->
+<div class="info-tabs-container">
+  <div class="info-tabs">
+    <button class="info-tab active" data-tab="overview">
+      <i class="fas fa-info-circle"></i> Overview
+    </button>
+    <button class="info-tab" data-tab="itinerary">
+      <i class="fas fa-route"></i> Itinerary
+    </button>
+    <button class="info-tab" data-tab="inclusions">
+      <i class="fas fa-check-circle"></i> Inclusions
+    </button>
+  </div>
 
-        <div class="mb-3 mt-3">
-          <label for="comment" class="form-label">Comment</label>
-          <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control" required></textarea>
-          <div class="invalid-feedback">Please submit some comment for review.</div>
-        </div>
+  <div class="info-content">
+    <!-- ================= OVERVIEW TAB ================= -->
+    <div class="tab-content active" id="overview">
+      <% if (listing.overview && (listing.overview.inclusions || listing.overview.themes || listing.overview.description)) { %>
+        <ul class="list-group list-group-flush mb-3">
+          <% if (listing.overview.inclusions) { %>
+            <li class="list-group-item">
+              <i class="fas fa-check-circle text-success me-2"></i>
+              <strong>Inclusions:</strong>&nbsp;&nbsp; <%= listing.overview.inclusions %>
+            </li>
+          <% } %>
+          <% if (listing.overview.themes) { %>
+            <li class="list-group-item">
+              <i class="fas fa-palette text-primary me-2"></i>
+              <strong>Themes:</strong>&nbsp;&nbsp; <%= listing.overview.themes %>
+            </li>
+          <% } %>
+          <% if (listing.overview.description) { %>
+            <li class="list-group-item">
+              <i class="fas fa-info-circle text-secondary me-2"></i>
+              <strong>Description:</strong> <%= listing.overview.description %>
+            </li>
+          <% } %>
+        </ul>
+      <% } else { %>
+        <p class="text-muted">No overview provided for this listing yet.</p>
+      <% } %>
+    </div>
 
-        <div class="text-center">
-          <button class="btn btn-outline-dark">Submit</button>
-        </div>
-      </form>
-    <% } %>
-
-    <!-- Reviews List -->
-    <% if(listing.reviews.length > 0) { %>
-      <hr />
-      <h4 class="text-center">All Reviews</h4>
-      <div class="row">
-        <% listing.reviews.forEach(review => { %>
-          <div class="col-12 col-md-6 mb-3">
-            <div class="card review-card">
-              <div class="card-body">
-                <h5 class="reviewer-name"><%= review.author.username %></h5>
-                <div class="d-flex justify-content-between align-items-center mb-2">
-                  <div>
-                    <% for (let i = 1; i <= 5; i++) { %>
-                      <i class="<%= i <= Math.floor(review.rating) ? 'fas fa-star' : (i - review.rating < 1 ? 'fas fa-star-half-alt' : 'far fa-star') %> text-warning"></i>
-                    <% } %>
-                  </div>
-                  <% if (review.createdAt) { %>
-                    <small class="text-muted"><%= new Date(review.createdAt).toLocaleDateString() %></small>
-                  <% } %>
-                </div>
-                <p class="mb-1"><%= review.comment %></p>
-              </div>
-
-              <!-- Delete Button -->
-              <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="text-end mt-2">
-                <button type="submit" class="delete-btn">Delete</button>
-              </form>
-            </div>
+    <!-- ================= ITINERARY TAB ================= -->
+    <div class="tab-content" id="itinerary">
+      <% if (listing.itinerary && listing.itinerary.length > 0) { %>
+        <% listing.itinerary.forEach((day, idx) => { %>
+          <div class="border rounded p-3 mb-3 bg-light">
+            <h6 class="fw-bold mb-2">
+              <i class="fas fa-calendar-day text-primary me-2"></i> Day <%= idx + 1 %>
+            </h6>
+            <% if (day.hotel) { %>
+              <p><i class="fas fa-hotel text-dark me-2"></i><strong>Hotel:</strong> <%= day.hotel %></p>
+            <% } %>
+            <% if (day.plan) { %>
+              <p><i class="fas fa-clipboard-list text-secondary me-2"></i><%= day.plan %></p>
+            <% } %>
+            <% if (day.meal) { %>
+              <span class="badge <%= day.meal === 'included' ? 'bg-success' : 'bg-danger' %>">
+                <i class="fas <%= day.meal === 'included' ? 'fa-utensils' : 'fa-ban' %> me-1"></i>
+                <%= day.meal === 'included' ? 'Meal Included' : 'Meal Not Included' %>
+              </span>
+            <% } %>
           </div>
         <% }) %>
-      </div>
-    <% } %>
-    <br>
-    <br>
-
-    <!-- Map Section -->
-    <div class="mb-3">
-      <h3 class="text-center">Where you'll be</h3>
-      <div id="map" class="w-100" style="height: 300px;"></div>
+      <% } else { %>
+        <p class="text-muted">No itinerary available yet.</p>
+      <% } %>
     </div>
+
+    <!-- ================= INCLUSIONS / EXCLUSIONS TAB ================= -->
+    <div class="tab-content" id="inclusions">
+      <h6 class="fw-bold mb-2"><i class="fas fa-check text-success me-2"></i> Inclusions</h6>
+      <% if (listing.inclusions && listing.inclusions.length > 0) { %>
+        <ul class="mb-3">
+          <% listing.inclusions.forEach(item => { %>
+            <li><i class="fas fa-check-circle text-success me-2"></i><%= item %></li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p class="text-muted">No inclusions mentioned yet.</p>
+      <% } %>
+
+      <h6 class="fw-bold mt-3 mb-2"><i class="fas fa-times text-danger me-2"></i> Exclusions</h6>
+      <% if (listing.exclusions && listing.exclusions.length > 0) { %>
+        <ul>
+          <% listing.exclusions.forEach(item => { %>
+            <li><i class="fas fa-times-circle text-danger me-2"></i><%= item %></li>
+          <% }) %>
+        </ul>
+      <% } else { %>
+        <p class="text-muted">No exclusions mentioned yet.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Tab Switching
+  document.querySelectorAll(".info-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      document.querySelectorAll(".info-tab").forEach(t => t.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c => c.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById(tab.dataset.tab).classList.add("active");
+    });
+  });
+</script>
+
+  <!-- Review Form -->
+  <% if(currUser) { %>
+    <hr />
+    <h2 class="text-center">Leave a Rating</h2>
+    <form method="POST" action="/listings/<%=listing._id%>/reviews" class="needs-validation" novalidate>
+      <div class="star-rating d-flex justify-content-center mb-2" id="starRating" style="font-size: 1.5rem;">
+        <span class="star" data-value="1"></span>
+        <span class="star" data-value="2"></span>
+        <span class="star" data-value="3"></span>
+        <span class="star" data-value="4"></span>
+        <span class="star" data-value="5"></span>
+      </div>
+      <p class="text-center">Your rating: <span id="ratingValue">0</span> / 5</p>
+      <input type="hidden" name="review[rating]" id="ratingInput" value="0">
+
+      <div class="mb-3 mt-3 text-center">
+        <label for="comment" class="form-label">Comment</label>
+        <textarea name="review[comment]" id="comment" rows="6" class="form-control mx-auto" style="width:600px;" required></textarea>
+        <div class="invalid-feedback">Please submit some comment for review.</div>
+      </div>
+
+      <div class="text-center">
+        <button class="btn btn-outline-dark">Submit</button>
+      </div>
+    </form>
+  <% } %>
+
+  <% if(listing.reviews.length > 0) { %>
+    <hr />
+    <h4 class="text-center mb-4">All Reviews</h4>
+    <div class="row g-3">
+      <% listing.reviews.forEach(review => { %>
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card review-card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="reviewer-name"><%= review.author.username %></h5>
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <div>
+                  <% for (let i = 1; i <= 5; i++) { %>
+                    <i class="<%= i <= Math.floor(review.rating) ? 'fas fa-star' : (i - review.rating < 1 ? 'fas fa-star-half-alt' : 'far fa-star') %> text-warning review-star"></i>
+                  <% } %>
+                </div>
+                <% if (review.createdAt) { %>
+                  <small class="text-muted"><%= new Date(review.createdAt).toLocaleDateString() %></small>
+                <% } %>
+              </div>
+              <p class="mb-3 flex-grow-1"><%= review.comment %></p>
+
+              <% if(currUser && currUser._id.equals(review.author._id)) { %>
+                <form action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="text-end mt-auto">
+                  <button type="submit" class="delete-btn">Delete</button>
+                </form>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+
+  <hr/>
+  <div class="mb-3">
+    <h3 class="text-center">Where you'll be</h3>
+    <div id="map"></div>
   </div>
 </div>
 

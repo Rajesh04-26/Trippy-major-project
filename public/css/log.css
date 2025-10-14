@@ -1,68 +1,160 @@
-/* Login & Signup pages */
-.login-page-container, .signup-page-container {
-  min-height: calc(100vh - 12rem);
+body {
+  background: #000;
+  margin: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color: #fff;
 }
 
-.login-card, .signup-card {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 2rem;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+.login-page-container,
+.signup-page-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
   width: 100%;
-  max-width: 450px;
+  max-width: 650px;
+  max-height: 450px;
+  min-height: 450px;
+  margin: auto;
+  background: #000;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.login-page-container::before,
+.signup-page-container::before {
+  content: "";
+  flex: 0.6;
+  background-size: cover;
+  background-position: center;
+}
+
+.login-page-container::before {
+  background-image: url('/images/login.jpg');
+}
+
+.signup-page-container::before {
+  background-image: url('/images/signup.jpg');
+}
+
+.login-card,
+.signup-card {
+  flex: 1;
+  max-width: 360px;
+  background: rgba(10, 10, 10, 0.75);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 140, 255, 0.3);
+  color: #fff;
   animation: fadeIn 0.8s ease forwards;
 }
 
-.login-card h1, .signup-card h1 {
+.login-card h1,
+.signup-card h1 {
   text-align: center;
   font-weight: 600;
-  font-size: 2rem;
-  margin-bottom: 1.5rem;
-  color: #222;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+  color: #fff;
 }
 
-.login-card label, .signup-card label {
-  font-weight: 500;
-  color: #333;
-}
-
-.login-card .form-control, .signup-card .form-control {
-  background: rgba(255, 255, 255, 0.85);
-  border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  padding: 0.75rem;
+.login-card .form-control,
+.signup-card .form-control {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 140, 255, 0.3);
+  color: #fff;
+  font-size: 0.9rem;
+  padding: 0.6rem 0.8rem;
   transition: all 0.3s ease;
 }
 
-.login-card .form-control:focus, .signup-card .form-control:focus {
-  background: rgba(255, 255, 255, 1);
-  border-color: #4facfe;
-  box-shadow: 0 0 8px rgba(79, 172, 254, 0.5);
+.login-card .form-control:focus,
+.signup-card .form-control:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #008cff;
+  box-shadow: 0 0 10px rgba(0, 140, 255, 0.6);
+  outline: none;
 }
 
-.login-card .btn-success, .signup-card .btn-success {
-  background: linear-gradient(90deg, #4facfe, #00f2fe);
+.login-card .btn-success,
+.signup-card .btn-success {
+  background: linear-gradient(90deg, #008cff, #1b64f5);
   border: none;
-  border-radius: 12px;
-  padding: 0.75rem;
+  padding: 0.6rem;
   font-weight: 600;
+  font-size: 0.9rem;
   color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   transition: all 0.3s ease;
 }
 
-.login-card .btn-success:hover, .signup-card .btn-success:hover {
+.login-card .btn-success:hover,
+.signup-card .btn-success:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 242, 254, 0.3);
+  box-shadow: 0 4px 14px rgba(0, 140, 255, 0.4);
+  filter: brightness(1.1);
 }
 
-/* Animation keyframes */
+.login-card a,
+.signup-card a {
+  color: #008cff;
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.login-card a:hover,
+.signup-card a:hover {
+  color: #1b64f5;
+  text-decoration: underline;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+.navbar {
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+}
+
+.navbar .container,
+.navbar .container-fluid {
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  .login-page-container,
+  .signup-page-container {
+    flex-direction: column;
+    width: 95%;
+    max-width: 420px;
+    max-height: unset;
+    min-height: 400px;
+  }
+
+  .login-page-container::before,
+  .signup-page-container::before {
+    display: none;
+  }
+
+  .login-card,
+  .signup-card {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
 }

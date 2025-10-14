@@ -1,54 +1,257 @@
 <% layout("/layouts/boilerplate") -%>
+
 <div class="row">
-  <div class="col-6 offset-3">
-    <h3>Create a New Listing</h3>
-    <br/>
+  <div class="col-12 col-lg-8 offset-lg-2">
+    <h3 class="mb-4 text-center">Create a New Listing</h3>
+
     <form method="POST" action="/listings" novalidate class="row g-3 needs-validation" enctype="multipart/form-data">
+      
+      <!-- Title -->
       <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input name="listing[title]" placeholder="enter title" type="text" class="form-control" required/>
-        <div class="invalid-feedback">please add a title!</div>
-        <div class="valid-feedback">Title looks good.</div>
+        <label class="form-label">Title</label>
+        <input name="listing[title]" placeholder="Enter title" type="text" class="form-control" required />
+        <div class="invalid-feedback">Please add a title!</div>
       </div>
     
+      <!-- Description -->
       <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea name="listing[description]" placeholder="enter description" class="form-control" required></textarea>
-        <div class="invalid-feedback">please add a short description!</div>
-        <div class="valid-feedback">Description looks good.</div>
+        <label class="form-label">Description</label>
+        <textarea name="listing[description]" placeholder="Enter description" class="form-control" rows="3" required></textarea>
+        <div class="invalid-feedback">Please add a short description!</div>
       </div>
-  
 
+      <!-- Main Image -->
       <div class="mb-3">
-        <label for="image" class="form-label">Upload Image</label>
-        <input name="listing[image]"  type="file" class="form-control" required/>
+        <label class="form-label">Upload Main Image</label>
+        <input name="listing[image]" type="file" class="form-control" required />
       </div>
-     
+
+      <!-- Gallery Images -->
       <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
-        <input name="listing[price]" placeholder="enter price" class="form-control" required/>
-         <div class="invalid-feedback">price should be valid!</div>
-         <div class="valid-feedback">price is valid.</div>
+        <label class="form-label">Gallery Images (max 6)</label>
+        <input name="listing[gallery]" type="file" class="form-control" multiple accept="image/*"/>
+        <small class="form-text text-muted">You can upload up to 6 images.</small>
       </div>
-      
+
+      <!-- Price -->
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+        <input name="listing[price]" type="number" placeholder="Enter price" class="form-control" required />
+        <div class="invalid-feedback">Price should be valid!</div>
+      </div>
+
+      <!-- Country & Location -->
       <div class="row">
         <div class="mb-3 col-md-6">
-        <label for="country" class="form-label">Country</label>
-        <input name="listing[country]" placeholder="enter country" type="text" class="form-control" required/>
-        <div class="invalid-feedback">country should be valid!</div>
-        <div class="valid-feedback">country is valid.</div>
+          <label class="form-label">Country</label>
+          <input name="listing[country]" type="text" placeholder="Enter country" class="form-control" required />
+          <div class="invalid-feedback">Country should be valid!</div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label class="form-label">Location</label>
+          <input name="listing[location]" type="text" placeholder="Enter location" class="form-control" required />
+          <div class="invalid-feedback">Location should be valid!</div>
+        </div>
       </div>
 
-      <div class="mb-3 col-md-6">
-         <label for="location" class="form-label">Location</label>
-         <input name="listing[location]" placeholder="enter location" type="text" class="form-control" required/>
-         <div class="invalid-feedback">location should be valid!</div>
-         <div class="valid-feedback">location is valid.</div>
-      </div>
+      <!-- Overview Section -->
+      <hr class="my-4" />
+      <h5 class="mb-3">Overview</h5>
+
+      <!-- Inclusions as Checkboxes -->
+      <div class="mb-3">
+        <label class="form-label d-block">Select Inclusions</label>
+        <div class="row g-2">
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][inclusions][]" value="Flights" class="form-check-input">
+              <i class="fas fa-plane text-dark me-1"></i> Flights
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][inclusions][]" value="Hotels" class="form-check-input">
+              <i class="fas fa-hotel text-dark me-1"></i> Hotels
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][inclusions][]" value="Food" class="form-check-input">
+              <i class="fas fa-utensils text-dark me-1"></i> Food
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][inclusions][]" value="Transport" class="form-check-input">
+              <i class="fas fa-bus text-dark me-1"></i> Transport
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][inclusions][]" value="Transport" class="form-check-input">
+              <i class="fa-user-tie text-dark me-1"></i> Tour Guide
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][inclusions][]" value="GST Included" class="form-check-input">
+              <i class="fas fa-receipt text-dark me-1"></i> 5% GST Included
+            </label>
+          </div>
+        </div>
       </div>
 
-      <br/>
-      <button class="btn btn-dark">Add</button>
+      <!-- Themes as Checkboxes -->
+<div class="mb-3">
+  <label class="form-label d-block">Select Themes</label>
+  <div class="row g-2">
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Adventure" class="form-check-input">
+        <i class="fas fa-hiking text-dark me-1"></i> Adventure
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Romantic" class="form-check-input">
+        <i class="fas fa-heart text-dark me-1"></i> Romantic
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Luxury" class="form-check-input">
+        <i class="fas fa-gem text-dark me-1"></i> Luxury
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Family" class="form-check-input">
+        <i class="fas fa-users text-dark me-1"></i> Family
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Cultural" class="form-check-input">
+        <i class="fas fa-landmark text-dark me-1"></i> Cultural
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Beach" class="form-check-input">
+        <i class="fas fa-umbrella-beach text-dark me-1"></i> Beach
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Wildlife" class="form-check-input">
+        <i class="fas fa-paw text-dark me-1"></i> Wildlife
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Wellness" class="form-check-input">
+        <i class="fas fa-spa text-dark me-1"></i> Wellness
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Sports" class="form-check-input">
+        <i class="fas fa-football-ball text-dark me-1"></i> Sports
+      </label>
+    </div>
+    <div class="col-6 col-md-4">
+      <label class="form-check">
+        <input type="checkbox" name="listing[overview][themes][]" value="Historical" class="form-check-input">
+        <i class="fas fa-scroll text-dark me-1"></i> Historical
+      </label>
+    </div>
+  </div>
+</div>
+
+      <!-- Overview Description -->
+      <div class="mb-3">
+        <label class="form-label">Overview Description</label>
+        <textarea name="listing[overview][description]" rows="3" class="form-control" placeholder="Enter overview details..."></textarea>
+      </div>
+
+      <!-- Itinerary Section -->
+      <hr class="my-4" />
+      <h5 class="mb-3">Itinerary</h5>
+      <small class="text-muted d-block mb-3">Add up to 5 days. Include hotel, plan, and meal info.</small>
+
+      <div id="itineraryContainer">
+        <div class="itinerary-item border rounded p-3 mb-3">
+          <h6>Day 1</h6>
+          <div class="mb-2">
+            <label class="form-label">Hotel</label>
+            <input name="listing[itinerary][0][hotel]" type="text" placeholder="Hotel Name" class="form-control" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Plan</label>
+            <textarea name="listing[itinerary][0][plan]" rows="2" placeholder="Enter plan for the day" class="form-control"></textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Meal</label>
+            <select name="listing[itinerary][0][meal]" class="form-select">
+              <option value="">Select</option>
+              <option value="included">Meal Included</option>
+              <option value="not-included">Meal Not Included</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" id="addDayBtn" class="btn btn-outline-primary w-100 mb-3">+ Add Another Day</button>
+
+      <!-- Inclusions & Exclusions -->
+      <hr class="my-4" />
+      <div class="mb-3">
+        <label class="form-label">Additional Inclusions (one per line)</label>
+        <textarea name="listing[inclusions]" rows="3" class="form-control" placeholder="e.g. Flight tickets&#10;Breakfast included"></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Exclusions (one per line)</label>
+        <textarea name="listing[exclusions]" rows="3" class="form-control" placeholder="e.g. Personal expenses&#10;Travel insurance"></textarea>
+      </div>
+
+      <button class="btn btn-dark w-100">Add Listing</button>
     </form>
   </div>
 </div>
+
+<script>
+  // Add dynamic itinerary days (max 5)
+  let dayCount = 1;
+  const itineraryContainer = document.getElementById("itineraryContainer");
+  const addDayBtn = document.getElementById("addDayBtn");
+
+  addDayBtn.addEventListener("click", () => {
+    if (dayCount >= 5) {
+      alert("You can add a maximum of 5 days.");
+      return;
+    }
+    dayCount++;
+    const newDay = document.createElement("div");
+    newDay.classList.add("itinerary-item", "border", "rounded", "p-3", "mb-3");
+    newDay.innerHTML = `
+      <h6>Day ${dayCount}</h6>
+      <div class="mb-2">
+        <label class="form-label">Hotel</label>
+        <input name="listing[itinerary][${dayCount-1}][hotel]" type="text" placeholder="Hotel Name" class="form-control" />
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Plan</label>
+        <textarea name="listing[itinerary][${dayCount-1}][plan]" rows="2" placeholder="Enter plan for the day" class="form-control"></textarea>
+      </div>
+      <div class="mb-2">
+        <label class="form-label">Meal</label>
+        <select name="listing[itinerary][${dayCount-1}][meal]" class="form-select">
+          <option value="">Select</option>
+          <option value="included">Meal Included</option>
+          <option value="not-included">Meal Not Included</option>
+        </select>
+      </div>
+    `;
+    itineraryContainer.appendChild(newDay);
+  });
+</script>

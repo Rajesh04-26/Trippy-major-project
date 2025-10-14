@@ -1,54 +1,174 @@
 <% layout("/layouts/boilerplate") -%>
+
 <div class="row">
-  <div class="col-8 offset-2">
-    <h3>Edit your Listing</h3>
+  <div class="col-12 col-lg-8 offset-lg-2">
+    <h3 class="mb-4 text-center">Edit Your Listing</h3>
+
     <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="row g-3 needs-validation" enctype="multipart/form-data">
+
+      <!-- Title -->
       <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input name="listing[title]" type="text" value="<%= listing.title %>"  class="form-control" required/>
-        <div class="invalid-feedback">please add a title!</div>
-        <div class="valid-feedback">Title looks good.</div>
-      </div>
-    
-      <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea name="listing[description]" type="text" value="<%= listing.description %>" class="form-control" required></textarea>
-        <div class="invalid-feedback">please add a short description!</div>
-        <div class="valid-feedback">Description looks good.</div>
+        <label class="form-label">Title</label>
+        <input name="listing[title]" type="text" value="<%= listing.title %>" class="form-control" required />
+        <div class="invalid-feedback">Please add a title!</div>
       </div>
 
+      <!-- Description -->
       <div class="mb-3">
-        <label>Original Image</label><br />
-        <img src="<%= listing.image.url %>" height="80px" width="100px">
+        <label class="form-label">Description</label>
+        <textarea name="listing[description]" rows="3" class="form-control" required><%= listing.description %></textarea>
+        <div class="invalid-feedback">Please add a short description!</div>
       </div>
-    
+
+      <!-- Main Image -->
       <div class="mb-3">
-        <label for="image" class="form-label">Upload New Image</label>
-        <input name="listing[image]" type="file" %>" class="form-control"/>
+        <label class="form-label">Current Main Image</label><br/>
+        <% if(listing.image) { %>
+          <img src="<%= listing.image.url %>" height="80" alt="current image" />
+        <% } %>
+        <input name="listing[image]" type="file" class="form-control mt-2"/>
       </div>
-     
+
+      <!-- Gallery Images -->
       <div class="mb-3">
-        <label for="price" class="form-label">Price</label>
+        <label class="form-label">Gallery Images (max 6)</label>
+        <% if(listing.gallery && listing.gallery.length > 0) { %>
+          <div class="d-flex gap-2 mb-2 flex-wrap">
+            <% listing.gallery.forEach((img, idx) => { %>
+              <img src="<%= img.url %>" height="60" width="80" alt="gallery <%= idx+1 %>" />
+            <% }) %>
+          </div>
+        <% } %>
+        <input name="listing[gallery]" type="file" class="form-control" multiple accept="image/*"/>
+        <small class="form-text text-muted">You can upload up to 6 additional images.</small>
+      </div>
+
+      <!-- Price -->
+      <div class="mb-3">
+        <label class="form-label">Price</label>
         <input name="listing[price]" type="number" value="<%= listing.price %>" class="form-control" required/>
-        <div class="invalid-feedback">price should be valid!</div>
-        <div class="valid-feedback">price is valid.</div>
-      </div>
-      
-      <div class="mb-3">
-        <label for="country" class="form-label">Country</label>
-        <input name="listing[country]" type="text" value="<%= listing.country %>" class="form-control" required/>
-        <div class="invalid-feedback">country should be valid!</div>
-        <div class="valid-feedback">country is valid.</div>
+        <div class="invalid-feedback">Please add a valid price!</div>
       </div>
 
-      <div class="mb-3">
-         <label for="location" class="form-label">Location</label>
-         <input name="listing[location]" type="text" value="<%= listing.location %>" class="form-control" required/>
-         <div class="invalid-feedback">location should be valid!</div>
-         <div class="valid-feedback">location is valid.</div>
+      <!-- Country & Location -->
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label class="form-label">Country</label>
+          <input name="listing[country]" type="text" value="<%= listing.country %>" class="form-control" required/>
+          <div class="invalid-feedback">Please add a valid country!</div>
+        </div>
+        <div class="mb-3 col-md-6">
+          <label class="form-label">Location</label>
+          <input name="listing[location]" type="text" value="<%= listing.location %>" class="form-control" required/>
+          <div class="invalid-feedback">Please add a valid location!</div>
+        </div>
       </div>
-      <br/>
-      <button class="btn btn-dark">Save</button>
+
+      <!-- Overview Section -->
+      <hr class="my-4" />
+      <h5 class="mb-3">Overview</h5>
+
+      <!-- Pre-selected inclusions -->
+<div class="mb-3">
+  <label class="form-label d-block">Select Inclusions</label>
+  <div class="row g-2">
+    <% const selectedInclusions = Array.isArray(listing.overview?.inclusions) ? listing.overview.inclusions : (listing.overview?.inclusions?.split(",").map(i=>i.trim()) || []); %>
+    <% const inclusions = ["Flights","Hotels","Food","Transport","Tour Guide","5% GST Included"]; %>
+    <% inclusions.forEach(item => { %>
+      <div class="col-6 col-md-4">
+        <label class="form-check">
+          <input type="checkbox" name="listing[overview][inclusions][]" value="<%= item %>" class="form-check-input"
+            <%= selectedInclusions.includes(item) ? "checked" : "" %> />
+          <i class="fas <%= item === 'Flights' ? 'fa-plane' : item === 'Hotels' ? 'fa-hotel' : item === 'Food' ? 'fa-utensils' : item === 'Transport' ? 'fa-bus' : item === 'Tour Guide' ? 'fa-user-tie' : 'fa-receipt' %> me-1"></i> <%= item %>
+        </label>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+      <!-- Pre-selected themes -->
+      <div class="mb-3">
+  <label class="form-label d-block">Select Themes</label>
+  <% 
+    const selectedThemes = Array.isArray(listing.overview?.themes) 
+      ? listing.overview.themes 
+      : (listing.overview?.themes?.split(",").map(t => t.trim()) || []); 
+
+    const themes = [
+      { name: "Adventure", icon: "fa-hiking" },
+      { name: "Romantic", icon: "fa-heart" },
+      { name: "Luxury", icon: "fa-gem" },
+      { name: "Family", icon: "fa-users" },
+      { name: "Cultural", icon: "fa-landmark" },
+      { name: "Beach", icon: "fa-umbrella-beach" },
+      { name: "Wildlife", icon: "fa-paw" },
+      { name: "Wellness", icon: "fa-spa" },
+      { name: "Sports", icon: "fa-football-ball" },
+      { name: "Historical", icon: "fa-scroll" }
+    ];
+  %>
+  <div class="row g-2">
+    <% themes.forEach(item => { %>
+      <div class="col-6 col-md-4">
+        <label class="form-check">
+          <input 
+            type="checkbox" 
+            name="listing[overview][themes][]" 
+            value="<%= item.name %>" 
+            class="form-check-input"
+            <%= selectedThemes.includes(item.name) ? "checked" : "" %>
+          />
+          <i class="fas <%= item.icon %> text-dark me-1"></i> <%= item.name %>
+        </label>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+      <!-- Overview Description -->
+      <div class="mb-3">
+        <label class="form-label">Overview Description</label>
+        <textarea name="listing[overview][description]" rows="3" class="form-control"><%= listing.overview?.description || "" %></textarea>
+      </div>
+
+      <!-- Itinerary Section -->
+      <hr class="my-4" />
+      <h5 class="mb-3">Itinerary</h5>
+      <small class="text-muted d-block mb-3">Add up to 5 days. Include hotel, plan, and meal info.</small>
+
+      <% for(let i=0; i<5; i++) { const day = listing.itinerary && listing.itinerary[i] ? listing.itinerary[i] : {}; %>
+        <div class="border rounded p-3 mb-3">
+          <h6>Day <%= i+1 %></h6>
+          <div class="mb-2">
+            <label class="form-label">Hotel</label>
+            <input name="listing[itinerary][<%= i %>][hotel]" type="text" class="form-control" value="<%= day.hotel || "" %>" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Plan</label>
+            <textarea name="listing[itinerary][<%= i %>][plan]" rows="2" class="form-control"><%= day.plan || "" %></textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Meal</label>
+            <select name="listing[itinerary][<%= i %>][meal]" class="form-select">
+              <option value="included" <%= day.meal==="included" ? "selected" : "" %>>Meal Included</option>
+              <option value="not-included" <%= day.meal==="not-included" || !day.meal ? "selected" : "" %>>Meal Not Included</option>
+            </select>
+          </div>
+        </div>
+      <% } %>
+
+      <!-- Inclusions & Exclusions -->
+      <hr class="my-4" />
+      <div class="mb-3">
+        <label class="form-label">Inclusions (one per line)</label>
+        <textarea name="listing[inclusions]" rows="3" class="form-control"><%= listing.inclusions ? listing.inclusions.join("\n") : "" %></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Exclusions (one per line)</label>
+        <textarea name="listing[exclusions]" rows="3" class="form-control"><%= listing.exclusions ? listing.exclusions.join("\n") : "" %></textarea>
+      </div>
+
+      <button class="btn btn-dark w-100">Update Listing</button>
     </form>
   </div>
 </div>
