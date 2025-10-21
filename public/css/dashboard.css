@@ -1,0 +1,19 @@
+.booking-img {
+  height: 70px;
+  width: 100px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.table th {
+  background: #343a40;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+.table td {
+  vertical-align: middle;
+  text-align: center;
+}
+body {
+  background: #f8f9fa;
+}

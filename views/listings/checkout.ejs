@@ -1,0 +1,63 @@
+<% layout('layouts/boilerplate') %>
+<% title = "Checkout" %>
+
+<link rel="stylesheet" href="/css/checkout.css">
+
+<form action="/listings/<%= listing._id %>/create-checkout-session" method="POST">
+  <div class="checkout-container">
+    <h2>Booking Summary</h2>
+
+    <div class="summary">
+      <p><strong>Trip:</strong> <%= listing.title %></p>
+      <p><strong>Adults:</strong> <%= adults %> × ₹<%= listing.price %> = ₹<%= adults * listing.price %></p>
+      <p><strong>Kids (10% discount):</strong> <%= kids %> × ₹<%= (listing.price * 0.9).toFixed(0) %> = ₹<%= (kids * (listing.price * 0.9)).toFixed(0) %></p>
+      <p class="total">Total: ₹<%= total %></p>
+
+      <!-- Currency Converter -->
+      <div class="currency-box">
+        <label for="currency">View in: </label>
+        <select id="currency">
+          <option value="INR" selected>INR (₹)</option>
+          <option value="USD">USD ($)</option>
+          <option value="EUR">EUR (€)</option>
+          <option value="GBP">GBP (£)</option>
+        </select>
+        <p id="convertedPrice" class="converted"></p>
+      </div>
+    </div>
+
+    <input type="hidden" name="adults" value="<%= adults %>">
+    <input type="hidden" name="kids" value="<%= kids %>">
+    <input type="hidden" name="total" value="<%= total %>">
+
+    <button class="btn-pay" type="submit">Proceed to Payment</button>
+  </div>
+</form>
+
+<script>
+  const totalInINR = <%= total %>;
+  const currencySelect = document.getElementById("currency");
+  const convertedPriceEl = document.getElementById("convertedPrice");
+  const currencySymbols = { "INR":"₹","USD":"$","EUR":"€","GBP":"£" };
+
+  async function fetchRates() {
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/INR'); // Free API
+      const data = await res.json();
+      return data.rates;
+    } catch (err) {
+      console.error("Currency API error:", err);
+      return { USD: 0.012, EUR: 0.011, GBP: 0.0095, INR: 1 }; // fallback
+    }
+  }
+
+  async function updateConvertedPrice() {
+    const rates = await fetchRates();
+    const selectedCurrency = currencySelect.value;
+    const converted = (totalInINR * rates[selectedCurrency]).toFixed(2);
+    convertedPriceEl.textContent = `${currencySymbols[selectedCurrency]}${converted} ${selectedCurrency}`;
+  }
+
+  updateConvertedPrice();
+  currencySelect.addEventListener("change", updateConvertedPrice);
+</script>

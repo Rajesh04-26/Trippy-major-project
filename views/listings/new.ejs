@@ -23,14 +23,16 @@
       <!-- Main Image -->
       <div class="mb-3">
         <label class="form-label">Upload Main Image</label>
-        <input name="listing[image]" type="file" class="form-control" required />
+        <input id="mainImage" name="listing[image]" type="file" class="form-control" required />
+        <small id="mainImageError" class="text-danger d-none"></small>
       </div>
 
       <!-- Gallery Images -->
       <div class="mb-3">
         <label class="form-label">Gallery Images (max 6)</label>
-        <input name="listing[gallery]" type="file" class="form-control" multiple accept="image/*"/>
-        <small class="form-text text-muted">You can upload up to 6 images.</small>
+        <input id="galleryImages" name="listing[gallery]" type="file" class="form-control" multiple accept="image/*"/>
+        <small class="form-text text-muted">You can upload up to 6 images (each ≤ 5 MB).</small>
+        <small id="galleryError" class="text-danger d-none"></small>
       </div>
 
       <!-- Price -->
@@ -88,8 +90,8 @@
           </div>
           <div class="col-6 col-md-4">
             <label class="form-check">
-              <input type="checkbox" name="listing[overview][inclusions][]" value="Transport" class="form-check-input">
-              <i class="fa-user-tie text-dark me-1"></i> Tour Guide
+              <input type="checkbox" name="listing[overview][inclusions][]" value="Tour Guide" class="form-check-input">
+              <i class="fas fa-user-tie text-dark me-1"></i> Tour Guide
             </label>
           </div>
           <div class="col-6 col-md-4">
@@ -101,72 +103,72 @@
         </div>
       </div>
 
-      <!-- Themes as Checkboxes -->
-<div class="mb-3">
-  <label class="form-label d-block">Select Themes</label>
-  <div class="row g-2">
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Adventure" class="form-check-input">
-        <i class="fas fa-hiking text-dark me-1"></i> Adventure
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Romantic" class="form-check-input">
-        <i class="fas fa-heart text-dark me-1"></i> Romantic
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Luxury" class="form-check-input">
-        <i class="fas fa-gem text-dark me-1"></i> Luxury
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Family" class="form-check-input">
-        <i class="fas fa-users text-dark me-1"></i> Family
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Cultural" class="form-check-input">
-        <i class="fas fa-landmark text-dark me-1"></i> Cultural
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Beach" class="form-check-input">
-        <i class="fas fa-umbrella-beach text-dark me-1"></i> Beach
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Wildlife" class="form-check-input">
-        <i class="fas fa-paw text-dark me-1"></i> Wildlife
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Wellness" class="form-check-input">
-        <i class="fas fa-spa text-dark me-1"></i> Wellness
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Sports" class="form-check-input">
-        <i class="fas fa-football-ball text-dark me-1"></i> Sports
-      </label>
-    </div>
-    <div class="col-6 col-md-4">
-      <label class="form-check">
-        <input type="checkbox" name="listing[overview][themes][]" value="Historical" class="form-check-input">
-        <i class="fas fa-scroll text-dark me-1"></i> Historical
-      </label>
-    </div>
-  </div>
-</div>
+      <!-- Themes -->
+      <div class="mb-3">
+        <label class="form-label d-block">Select Themes</label>
+        <div class="row g-2">
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Adventure" class="form-check-input">
+              <i class="fas fa-hiking text-dark me-1"></i> Adventure
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Romantic" class="form-check-input">
+              <i class="fas fa-heart text-dark me-1"></i> Romantic
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Luxury" class="form-check-input">
+              <i class="fas fa-gem text-dark me-1"></i> Luxury
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Family" class="form-check-input">
+              <i class="fas fa-users text-dark me-1"></i> Family
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Cultural" class="form-check-input">
+              <i class="fas fa-landmark text-dark me-1"></i> Cultural
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Beach" class="form-check-input">
+              <i class="fas fa-umbrella-beach text-dark me-1"></i> Beach
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Wildlife" class="form-check-input">
+              <i class="fas fa-paw text-dark me-1"></i> Wildlife
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Wellness" class="form-check-input">
+              <i class="fas fa-spa text-dark me-1"></i> Wellness
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Sports" class="form-check-input">
+              <i class="fas fa-football-ball text-dark me-1"></i> Sports
+            </label>
+          </div>
+          <div class="col-6 col-md-4">
+            <label class="form-check">
+              <input type="checkbox" name="listing[overview][themes][]" value="Historical" class="form-check-input">
+              <i class="fas fa-scroll text-dark me-1"></i> Historical
+            </label>
+          </div>
+        </div>
+      </div>
 
       <!-- Overview Description -->
       <div class="mb-3">
@@ -237,15 +239,15 @@
       <h6>Day ${dayCount}</h6>
       <div class="mb-2">
         <label class="form-label">Hotel</label>
-        <input name="listing[itinerary][${dayCount-1}][hotel]" type="text" placeholder="Hotel Name" class="form-control" />
+        <input name="listing[itinerary][${dayCount - 1}][hotel]" type="text" placeholder="Hotel Name" class="form-control" />
       </div>
       <div class="mb-2">
         <label class="form-label">Plan</label>
-        <textarea name="listing[itinerary][${dayCount-1}][plan]" rows="2" placeholder="Enter plan for the day" class="form-control"></textarea>
+        <textarea name="listing[itinerary][${dayCount - 1}][plan]" rows="2" placeholder="Enter plan for the day" class="form-control"></textarea>
       </div>
       <div class="mb-2">
         <label class="form-label">Meal</label>
-        <select name="listing[itinerary][${dayCount-1}][meal]" class="form-select">
+        <select name="listing[itinerary][${dayCount - 1}][meal]" class="form-select">
           <option value="">Select</option>
           <option value="included">Meal Included</option>
           <option value="not-included">Meal Not Included</option>
@@ -253,5 +255,40 @@
       </div>
     `;
     itineraryContainer.appendChild(newDay);
+  });
+
+  // Image validation logic
+  const mainImageInput = document.getElementById("mainImage");
+  const galleryInput = document.getElementById("galleryImages");
+  const mainError = document.getElementById("mainImageError");
+  const galleryError = document.getElementById("galleryError");
+
+  mainImageInput.addEventListener("change", function () {
+    mainError.classList.add("d-none");
+    if (this.files[0] && this.files[0].size > 1.5 * 1024 * 1024) {
+      mainError.textContent = "Main image must be smaller than 1.5 MB.";
+      mainError.classList.remove("d-none");
+      this.value = "";
+    }
+  });
+
+  galleryInput.addEventListener("change", function () {
+    galleryError.classList.add("d-none");
+
+    if (this.files.length > 6) {
+      galleryError.textContent = "You can upload a maximum of 6 images.";
+      galleryError.classList.remove("d-none");
+      this.value = "";
+      return;
+    }
+
+    for (const file of this.files) {
+      if (file.size > 6 * 1024 * 1024) {
+        galleryError.textContent = "All gallery image must be smaller than  6 MB.";
+        galleryError.classList.remove("d-none");
+        this.value = "";
+        return;
+      }
+    }
   });
 </script>

@@ -1,0 +1,119 @@
+body {
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #f3f4f6;
+  margin: 0;
+  padding: 0;
+}
+
+.checkout-container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1e293b;
+  font-size: 26px;
+}
+
+.summary {
+  margin-bottom: 25px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #fafafa;
+}
+
+.summary p {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #374151;
+}
+
+.total {
+  font-size: 20px;
+  font-weight: bold;
+  color: #2563eb;
+  margin-top: 15px;
+  text-align: right;
+}
+
+.btn-pay {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.btn-pay:hover {
+  background: linear-gradient(135deg, #16a34a, #15803d);
+  transform: translateY(-2px);
+}
+
+.currency-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #f9fafb;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.03);
+  margin-top: 18px;
+  transition: all 0.25s ease;
+}
+
+.currency-box:hover {
+  background: #f3f4f6;
+  transform: translateY(-2px);
+}
+
+.currency-box label {
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #111827;
+  font-size: 15px;
+}
+
+.currency-box select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #9ca3af;
+  font-size: 15px;
+  outline: none;
+  cursor: pointer;
+  background: #fff;
+  transition: all 0.25s ease;
+}
+
+.currency-box select:hover,
+.currency-box select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+}
+
+.converted {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1f2937;
+  margin-top: 12px;
+  background: #ffffff;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  width: fit-content;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}

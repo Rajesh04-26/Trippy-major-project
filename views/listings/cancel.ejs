@@ -1,0 +1,44 @@
+<% title = "Booking Cancelled" %>
+
+<link rel="stylesheet" href="/css/cancel.css">
+
+<div class="shards-container" id="shardsContainer"></div>
+
+<div class="cancel-container">
+  <div class="cross-circle">
+    <div class="cross"></div>
+  </div>
+  <h1>Booking Cancelled</h1>
+  <p>Your booking was not completed. If this was a mistake, you can try again.</p>
+  <a href="/listings" class="btn-modern">Back to Listings</a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const shardsContainer = document.getElementById('shardsContainer');
+    const numberOfShards = 60;
+
+    function createShards() {
+      for (let i = 0; i < numberOfShards; i++) {
+        const shard = document.createElement('div');
+        shard.classList.add('shard');
+
+        const startX = Math.random() * window.innerWidth + 'px';
+        const endX = (Math.random() - 0.5) * window.innerWidth * 1.5 + 'px';
+
+        shard.style.setProperty('--startX', startX);
+        shard.style.setProperty('--endX', endX);
+        shard.style.animationDelay = `${Math.random() * 2}s`;
+        shard.style.left = `${Math.random() * 100}vw`;
+
+        shardsContainer.appendChild(shard);
+
+        shard.addEventListener('animationend', () => {
+          shard.remove();
+        });
+      }
+    }
+
+    setTimeout(createShards, 1000);
+  });
+</script>

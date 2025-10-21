@@ -1,0 +1,49 @@
+<% title = "Booking Confirmed" %>
+
+<link rel="stylesheet" href="/css/success.css">
+
+<div class="popper-container" id="popperContainer"></div>
+
+<div class="confirmation-container">
+  <div class="checkmark-circle">
+    <div class="checkmark"></div>
+  </div>
+  <h1>Booking Confirmed!</h1>
+  <p>Your payment was successful and your booking has been secured. Get ready for an amazing experience!</p>
+  <a href="/listings" class="btn-modern">Explore More Listings</a>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const popperContainer = document.getElementById('popperContainer');
+  const numberOfConfetti = 100;
+
+  function createConfetti() {
+    for (let i = 0; i < numberOfConfetti; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+
+      const startX = Math.random() * window.innerWidth - (window.innerWidth / 2) + 'px';
+      const startY = Math.random() * window.innerHeight * 0.2 + 'px';
+      const endX = (Math.random() - 0.5) * window.innerWidth * 1.5 + 'px';
+      const endY = window.innerHeight * 1.2 + 'px';
+      const rotation = Math.random() * 720 + 'deg';
+
+      confetti.style.setProperty('--startX', startX);
+      confetti.style.setProperty('--startY', startY);
+      confetti.style.setProperty('--endX', endX);
+      confetti.style.setProperty('--endY', endY);
+      confetti.style.setProperty('--rotation', rotation);
+      confetti.style.animationDelay = `${Math.random() * 2}s`;
+      confetti.style.left = `${Math.random() * 100}vw`;
+      confetti.style.top = `-${Math.random() * 20}vh`;
+
+      popperContainer.appendChild(confetti);
+
+      confetti.addEventListener('animationend', () => confetti.remove());
+    }
+  }
+
+  setTimeout(createConfetti, 1000);
+});
+</script>

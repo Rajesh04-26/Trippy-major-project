@@ -1,0 +1,164 @@
+<% layout('/layouts/boilerplate') -%>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="bg-gradient-to-br from-blue-50 via-indigo-50 to-sky-100 text-gray-900 min-h-screen font-sans">
+
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Title -->
+    <h1 class="text-6xl font-extrabold text-center text-indigo-700 mb-6 drop-shadow-sm tracking-tight">
+      <%= itineraryData.tripName %> ✈️
+    </h1>
+    <p class="text-center text-xl text-gray-600 mb-14 italic max-w-3xl mx-auto leading-relaxed">
+      <%= itineraryData.overview %>
+    </p>
+
+    <!-- Days -->
+    <div class="space-y-20">
+      <% itineraryData.days.forEach(day => { %>
+        <div class="bg-white/90 backdrop-blur-md shadow-2xl rounded-3xl p-10 hover:shadow-indigo-300 transition duration-300">
+          <h2 class="text-4xl font-bold text-indigo-600 mb-8 flex items-center gap-3">
+            📅 Day <%= day.dayNumber %>: <span class="ml-1"><%= day.theme %></span>
+          </h2>
+
+          <!-- Activities -->
+          <div class="mb-12">
+            <h3 class="text-3xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
+              🎢 Activities
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <% day.activities.forEach(act => { %>
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-[1.02]">
+                  <% if (act.photo) { %>
+                    <img src="<%= act.photo %>" alt="<%= act.name %>" class="h-56 w-full object-cover">
+                  <% } else { %>
+                    <div class="h-56 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+                      ❌ No image
+                    </div>
+                  <% } %>
+                  <div class="p-5">
+                    <h4 class="text-xl font-semibold text-gray-800 mb-2"><%= act.name %></h4>
+                    <p class="text-gray-600 text-base leading-relaxed"><%= act.description %></p>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+
+          <!-- Food -->
+          <div class="mb-12">
+            <h3 class="text-3xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
+              🍽️ Food Suggestions
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <% day.foodSuggestions.forEach(food => { %>
+                <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-[1.02]">
+                  <% if (food.photo) { %>
+                    <img src="<%= food.photo %>" alt="<%= food.name %>" class="h-56 w-full object-cover">
+                  <% } else { %>
+                    <div class="h-56 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+                      ❌ No image
+                    </div>
+                  <% } %>
+                  <div class="p-5">
+                    <h4 class="text-xl font-semibold text-gray-800 mb-2"><%= food.name %></h4>
+                    <p class="text-gray-600 text-base leading-relaxed"><%= food.description %></p>
+                  </div>
+                </div>
+              <% }) %>
+            </div>
+          </div>
+
+          <!-- Hotel -->
+          <div>
+            <h3 class="text-3xl font-semibold mb-6 text-gray-800 flex items-center gap-2">
+              🏨 Hotel
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-transform transform hover:-translate-y-2 hover:scale-[1.02]">
+                <% if (day.hotelSuggestion && day.hotelSuggestion.photo) { %>
+                  <img src="<%= day.hotelSuggestion.photo %>" alt="<%= day.hotelSuggestion.name %>" class="h-56 w-full object-cover">
+                <% } else { %>
+                  <div class="h-56 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+                    ❌ No image
+                  </div>
+                <%} %>
+                <div class="p-5">
+                  <h4 class="text-xl font-semibold text-gray-800 mb-2"><%= day.hotelSuggestion.name %></h4>
+                  <p class="text-gray-600 text-base leading-relaxed"><%= day.hotelSuggestion.description %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- 🌦️ Weather Forecast Section -->
+  <div id="weatherSection"
+       class="bg-gradient-to-r from-sky-100 via-indigo-100 to-blue-200 shadow-xl rounded-3xl p-10 my-16 text-center hidden transition-all duration-500">
+    <h2 class="text-4xl font-extrabold text-indigo-700 mb-10 flex justify-center items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-9 w-9 text-yellow-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 3v1m0 16v1m8.66-10H21m-18 0h1.34m12.02 7.66l.71.71m-10.1 0l.71-.71m10.1-10.1l.71-.71m-10.1 0l.71.71M12 8a4 4 0 100 8 4 4 0 000-8z" />
+      </svg>
+      Weather Forecast
+    </h2>
+    <div id="weatherContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 px-4"></div>
+  </div>
+
+  <script>
+  async function loadWeather() {
+    const city = "<%= itineraryData.tripName.split(' ')[2] %>";
+    const res = await fetch(`/ai/weather?city=${city}`);
+    const data = await res.json();
+    if (data.error) return;
+
+    const section = document.getElementById("weatherSection");
+    const container = document.getElementById("weatherContainer");
+    section.classList.remove("hidden");
+
+    const today = data.forecast[0];
+    const hourly = today.hourly?.slice(0, 6) || [];
+
+    let hourlyHTML = "";
+    if (hourly.length > 0) {
+      hourlyHTML = `
+        <div class="col-span-full bg-white/80 rounded-3xl p-6 mt-6 shadow-md">
+          <h3 class="text-2xl font-semibold text-indigo-600 mb-4 flex items-center justify-center gap-2">
+            <svg xmlns='http://www.w3.org/2000/svg' class='h-6 w-6 text-blue-500' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
+              <path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M3 12h18M3 6h18M3 18h18'/>
+            </svg>
+            Next Hours
+          </h3>
+          <div class="flex justify-center gap-6 overflow-x-auto p-2">
+            ${hourly.map(h => `
+              <div class="bg-gradient-to-b from-indigo-50 to-blue-50 rounded-xl p-3 shadow hover:shadow-lg transition w-24 flex-shrink-0">
+                <p class="text-sm text-gray-600">${h.time}</p>
+                <img src="https://openweathermap.org/img/wn/${h.icon}.png" alt="${h.desc}" class="mx-auto h-10 w-10">
+                <p class="font-semibold text-gray-800">${Math.round(h.temp)}°C</p>
+              </div>
+            `).join('')}
+          </div>
+        </div>`;
+    }
+
+    container.innerHTML = data.forecast.slice(0, 5).map(day => {
+      const date = new Date(day.date);
+      const options = { weekday: 'short', day: 'numeric', month: 'short' };
+      const formattedDate = date.toLocaleDateString('en-US', options);
+      return `
+        <div class="bg-white/80 rounded-3xl p-6 shadow-lg hover:shadow-indigo-400 transition transform hover:-translate-y-1 flex flex-col items-center">
+          <h4 class="text-xl font-semibold text-indigo-700 mb-2">${formattedDate}</h4>
+          <img src="https://openweathermap.org/img/wn/${day.icon}@2x.png" alt="${day.desc}" class="mx-auto h-16 w-16 drop-shadow-lg">
+          <p class="capitalize text-gray-600">${day.desc}</p>
+          <p class="text-2xl font-bold text-gray-900 mt-2">${Math.round(day.temp)}°C</p>
+          <p class="text-sm text-gray-500 mt-1">💧 ${day.humidity}% | 🌬️ ${day.wind} km/h</p>
+        </div>`;
+    }).join('') + hourlyHTML;
+  }
+
+  loadWeather();
+  </script>
+
+</body>

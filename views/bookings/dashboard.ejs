@@ -1,0 +1,66 @@
+<% layout('layouts/boilerplate') %>
+<% title = "My Bookings" %>
+
+<!-- Page-specific CSS -->
+<link rel="stylesheet" href="/css/dashboard.css">
+
+<h3>Hi, <%= currUser.username %> 👋</h3>
+
+<% if (bookings.length === 0) { %>
+  <div class="alert alert-info text-center mt-4">
+    You have no bookings yet.
+  </div>
+<% } else { %>
+  <div class="table-responsive shadow-sm mt-4">
+    <table class="table table-bordered table-striped align-middle">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Listing</th>
+          <th>Adults</th>
+          <th>Kids</th>
+          <th>Total Amount</th>
+          <th>Status</th>
+          <th>Booked On</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% bookings.forEach(booking => { %>
+          <tr>
+            <td>
+              <% if (booking.listing.image) { %>
+                <img src="<%= booking.listing.image.url%>" class="booking-img" alt="<%= booking.listing.title %>">
+              <% } else { %>
+                <img src="https://via.placeholder.com/100x70?text=No+Image" class="booking-img" alt="No Image">
+              <% } %>
+            </td>
+            <td><strong><%= booking.listing.title %></strong></td>
+            <td><%= booking.adults %></td>
+            <td><%= booking.kids %></td>
+            <td>₹<%= booking.totalAmount %></td>
+            <td>
+              <% if (booking.status === "paid") { %>
+                <span class="badge bg-success">Paid</span>
+              <% } else if (booking.status === "pending") { %>
+                <span class="badge bg-warning text-dark">Pending</span>
+              <% } else { %>
+                <span class="badge bg-danger">Cancelled</span>
+              <% } %>
+            </td>
+            <td><%= booking.createdAt.toDateString() %></td>
+            <td>
+              <% if (booking.status === "pending" || booking.status === "paid") { %>
+                <form action="/bookings/<%= booking._id %>/cancel" method="POST">
+                  <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                </form>
+              <% } else { %>
+                <em>—</em>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+<% } %>

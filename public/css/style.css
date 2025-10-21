@@ -16,10 +16,6 @@ body {
     padding: 2.5rem 0;
 }
 
-.login-card .row,
-.signup-card .row {
-    padding: 0 !important;
-}
 
 /* Buttons */
 .btn {

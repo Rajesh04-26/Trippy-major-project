@@ -26,7 +26,8 @@
         <% if(listing.image) { %>
           <img src="<%= listing.image.url %>" height="80" alt="current image" />
         <% } %>
-        <input name="listing[image]" type="file" class="form-control mt-2"/>
+        <input id="mainImage" name="listing[image]" type="file" class="form-control mt-2"/>
+        <small id="mainImageError" class="text-danger d-none"></small>
       </div>
 
       <!-- Gallery Images -->
@@ -39,8 +40,9 @@
             <% }) %>
           </div>
         <% } %>
-        <input name="listing[gallery]" type="file" class="form-control" multiple accept="image/*"/>
-        <small class="form-text text-muted">You can upload up to 6 additional images.</small>
+        <input id="galleryImages" name="listing[gallery]" type="file" class="form-control" multiple accept="image/*"/>
+        <small class="form-text text-muted">You can upload up to 6 additional images (each ≤ 6 MB).</small>
+        <small id="galleryError" class="text-danger d-none"></small>
       </div>
 
       <!-- Price -->
@@ -69,61 +71,61 @@
       <h5 class="mb-3">Overview</h5>
 
       <!-- Pre-selected inclusions -->
-<div class="mb-3">
-  <label class="form-label d-block">Select Inclusions</label>
-  <div class="row g-2">
-    <% const selectedInclusions = Array.isArray(listing.overview?.inclusions) ? listing.overview.inclusions : (listing.overview?.inclusions?.split(",").map(i=>i.trim()) || []); %>
-    <% const inclusions = ["Flights","Hotels","Food","Transport","Tour Guide","5% GST Included"]; %>
-    <% inclusions.forEach(item => { %>
-      <div class="col-6 col-md-4">
-        <label class="form-check">
-          <input type="checkbox" name="listing[overview][inclusions][]" value="<%= item %>" class="form-check-input"
-            <%= selectedInclusions.includes(item) ? "checked" : "" %> />
-          <i class="fas <%= item === 'Flights' ? 'fa-plane' : item === 'Hotels' ? 'fa-hotel' : item === 'Food' ? 'fa-utensils' : item === 'Transport' ? 'fa-bus' : item === 'Tour Guide' ? 'fa-user-tie' : 'fa-receipt' %> me-1"></i> <%= item %>
-        </label>
+      <div class="mb-3">
+        <label class="form-label d-block">Select Inclusions</label>
+        <div class="row g-2">
+          <% const selectedInclusions = Array.isArray(listing.overview?.inclusions) ? listing.overview.inclusions : (listing.overview?.inclusions?.split(",").map(i=>i.trim()) || []); %>
+          <% const inclusions = ["Flights","Hotels","Food","Transport","Tour Guide","5% GST Included"]; %>
+          <% inclusions.forEach(item => { %>
+            <div class="col-6 col-md-4">
+              <label class="form-check">
+                <input type="checkbox" name="listing[overview][inclusions][]" value="<%= item %>" class="form-check-input"
+                  <%= selectedInclusions.includes(item) ? "checked" : "" %> />
+                <i class="fas <%= item === 'Flights' ? 'fa-plane' : item === 'Hotels' ? 'fa-hotel' : item === 'Food' ? 'fa-utensils' : item === 'Transport' ? 'fa-bus' : item === 'Tour Guide' ? 'fa-user-tie' : 'fa-receipt' %> me-1"></i> <%= item %>
+              </label>
+            </div>
+          <% }) %>
+        </div>
       </div>
-    <% }) %>
-  </div>
-</div>
 
       <!-- Pre-selected themes -->
       <div class="mb-3">
-  <label class="form-label d-block">Select Themes</label>
-  <% 
-    const selectedThemes = Array.isArray(listing.overview?.themes) 
-      ? listing.overview.themes 
-      : (listing.overview?.themes?.split(",").map(t => t.trim()) || []); 
+        <label class="form-label d-block">Select Themes</label>
+        <% 
+          const selectedThemes = Array.isArray(listing.overview?.themes) 
+            ? listing.overview.themes 
+            : (listing.overview?.themes?.split(",").map(t => t.trim()) || []); 
 
-    const themes = [
-      { name: "Adventure", icon: "fa-hiking" },
-      { name: "Romantic", icon: "fa-heart" },
-      { name: "Luxury", icon: "fa-gem" },
-      { name: "Family", icon: "fa-users" },
-      { name: "Cultural", icon: "fa-landmark" },
-      { name: "Beach", icon: "fa-umbrella-beach" },
-      { name: "Wildlife", icon: "fa-paw" },
-      { name: "Wellness", icon: "fa-spa" },
-      { name: "Sports", icon: "fa-football-ball" },
-      { name: "Historical", icon: "fa-scroll" }
-    ];
-  %>
-  <div class="row g-2">
-    <% themes.forEach(item => { %>
-      <div class="col-6 col-md-4">
-        <label class="form-check">
-          <input 
-            type="checkbox" 
-            name="listing[overview][themes][]" 
-            value="<%= item.name %>" 
-            class="form-check-input"
-            <%= selectedThemes.includes(item.name) ? "checked" : "" %>
-          />
-          <i class="fas <%= item.icon %> text-dark me-1"></i> <%= item.name %>
-        </label>
+          const themes = [
+            { name: "Adventure", icon: "fa-hiking" },
+            { name: "Romantic", icon: "fa-heart" },
+            { name: "Luxury", icon: "fa-gem" },
+            { name: "Family", icon: "fa-users" },
+            { name: "Cultural", icon: "fa-landmark" },
+            { name: "Beach", icon: "fa-umbrella-beach" },
+            { name: "Wildlife", icon: "fa-paw" },
+            { name: "Wellness", icon: "fa-spa" },
+            { name: "Sports", icon: "fa-football-ball" },
+            { name: "Historical", icon: "fa-scroll" }
+          ];
+        %>
+        <div class="row g-2">
+          <% themes.forEach(item => { %>
+            <div class="col-6 col-md-4">
+              <label class="form-check">
+                <input 
+                  type="checkbox" 
+                  name="listing[overview][themes][]" 
+                  value="<%= item.name %>" 
+                  class="form-check-input"
+                  <%= selectedThemes.includes(item.name) ? "checked" : "" %>
+                />
+                <i class="fas <%= item.icon %> text-dark me-1"></i> <%= item.name %>
+              </label>
+            </div>
+          <% }) %>
+        </div>
       </div>
-    <% }) %>
-  </div>
-</div>
 
       <!-- Overview Description -->
       <div class="mb-3">
@@ -172,3 +174,32 @@
     </form>
   </div>
 </div>
+
+<script>
+  // Main Image Validation (≤1.5MB)
+  const mainImageInput = document.getElementById("mainImage");
+  const mainImageError = document.getElementById("mainImageError");
+  mainImageInput.addEventListener("change", function() {
+    mainImageError.classList.add("d-none");
+    if(this.files[0] && this.files[0].size > 1.5 * 1024 * 1024) {
+      mainImageError.textContent = "Main image must be ≤ 1.5 MB.";
+      mainImageError.classList.remove("d-none");
+      this.value = "";
+    }
+  });
+
+  // Gallery Images Validation (≤6MB each)
+  const galleryInput = document.getElementById("galleryImages");
+  const galleryError = document.getElementById("galleryError");
+  galleryInput.addEventListener("change", function() {
+    galleryError.classList.add("d-none");
+    for(const file of this.files) {
+      if(file.size > 6 * 1024 * 1024) {
+        galleryError.textContent = "All gallery image must be ≤ 6 MB.";
+        galleryError.classList.remove("d-none");
+        this.value = "";
+        break;
+      }
+    }
+  });
+</script>
