@@ -1,9 +1,6 @@
-if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config();
-}
+require("dotenv").config({ path: process.env.NODE_ENV !== "production" ? ".env" : undefined });
 
 const express = require("express");
-const app = express();
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -13,14 +10,17 @@ const MongoStore = require("connect-mongo");
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
-const User = require("./models/user.js");
-const tripPlannerRoutes = require("./routes/tripPlanner");
 
-// Routers
-const listingRouter = require("./routes/listings.js");
-const reviewRouter = require("./routes/reviews.js");
-const userRouter = require("./routes/users.js");
-const bookingRouter = require("./routes/booking.js");
+// Models
+const User = require("./models/user");
+const Listing = require("./models/listing");
+
+// Routes
+const listingRouter = require("./routes/listings");
+const reviewRouter = require("./routes/reviews");
+const userRouter = require("./routes/users");
+const bookingRouter = require("./routes/booking");
+const tripPlannerRoutes = require("./routes/tripPlanner");
 
 // Stripe setup
 const Stripe = require("stripe");
@@ -30,17 +30,16 @@ const stripePublicKey = process.env.STRIPE_PUBLISHABLE_KEY;
 // MongoDB connection
 const dbUrl = process.env.ATLASDB_URL;
 
-main()
-  .then(() => {
+(async function connectDB() {
+  try {
+    await mongoose.connect(dbUrl, { autoIndex: true });
     console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log("MongoDB connection error:", err);
-  });
+  } catch (err) {
+    console.error("MongoDB connection error:", err);
+  }
+})();
 
-async function main() {
-  await mongoose.connect(dbUrl);
-}
+const app = express();
 
 // App & view engine setup
 app.engine("ejs", ejsMate);
@@ -53,58 +52,52 @@ app.use(methodOverride("_method"));
 // Session store configuration
 const store = MongoStore.create({
   mongoUrl: dbUrl,
-  crypto: {
-    secret: process.env.SECRET,
-  },
-  touchAfter: 24 * 3600,
+  crypto: { secret: process.env.SECRET },
+  touchAfter: 24 * 3600, // update only once per day
 });
 
-store.on("error", (err) => {
-  console.log("Mongo Session Store Error:", err);
-});
+store.on("error", (err) => console.error("Mongo Session Store Error:", err));
 
-const sessionOptions = {
+const sessionConfig = {
   store,
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
-    expires: Date.now() + 7 * 24 * 60 * 60 * 1000, // 7 days
-    maxAge: 7 * 24 * 60 * 60 * 1000,
     httpOnly: true,
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
   },
 };
 
-// Middleware
-app.use(session(sessionOptions));
+app.use(session(sessionConfig));
 app.use(flash());
+
+// Passport configuration
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Global middleware for flash messages and current user
+// Global middleware for flash messages and user
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
-  res.locals.stripePublicKey = stripePublicKey; 
+  res.locals.stripePublicKey = stripePublicKey;
   next();
 });
-
-// Models
-const Listing = require("./models/listing.js");
 
 // Home route
 app.get("/", async (req, res) => {
   try {
     const allListings = await Listing.find({});
-    res.render("listings/home.ejs", { allListings });
-  } catch (e) {
-    console.log(e);
+    res.render("listings/home", { allListings });
+  } catch (err) {
+    console.error(err);
     req.flash("error", "Cannot load listings");
-    res.render("listings/home.ejs", { allListings: [] });
+    res.render("listings/home", { allListings: [] });
   }
 });
 
@@ -118,11 +111,12 @@ app.use("/ai", tripPlannerRoutes);
 // Error handling middleware
 app.use((err, req, res, next) => {
   const { status = 500, message = "Something went wrong" } = err;
-  res.status(status).render("error.ejs", { message });
+  console.error(err);
+  res.status(status).render("error", { message });
 });
 
 // Start server
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

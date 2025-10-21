@@ -9,6 +9,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.A
 const UNSPLASH_KEY = process.env.UNSPLASH_ACCESS_KEY;
 const WEATHER_KEY = process.env.WEATHER_API_KEY;
 
+// Helper: Fetch photo URL from Unsplash or fallback to Wikipedia
 async function getPhotoUrl(query) {
   try {
     const res = await axios.get('https://api.unsplash.com/search/photos', {
@@ -30,12 +31,15 @@ async function getPhotoUrl(query) {
   return null;
 }
 
+// Helper: Fetch 5-day weather forecast
 async function getWeather(city) {
   if (!city || city.trim() === "") return { error: "City not provided." };
+
   try {
     const res = await axios.get(`https://api.openweathermap.org/data/2.5/forecast`, {
       params: { q: city, units: "metric", appid: WEATHER_KEY }
     });
+
     const list = res.data.list;
     const grouped = {};
     list.forEach(item => {
@@ -76,21 +80,46 @@ async function getWeather(city) {
   }
 }
 
+// Helper: Extract JSON from Gemini response
+function extractJSON(text) {
+  const match = text.match(/\{[\s\S]*\}/);
+  if (!match) throw new Error("No JSON found in Gemini response");
+  return JSON.parse(match[0]);
+}
+
+// Helper: Add photos to array of items in parallel
+async function addPhotos(items, placeName) {
+  await Promise.all(items.map(async item => {
+    item.photo = await getPhotoUrl(`${item.name} ${placeName}`);
+  }));
+}
+
+// Routes
 router.get('/', (req, res) => {
   res.render('trip-planner.ejs');
 });
 
 router.post('/generate-trip', async (req, res) => {
   const { destination, budget, days, category } = req.body;
+
+  if (!destination || !days || !category || !budget) {
+    req.flash('error', 'All fields are required.');
+    return res.redirect('/ai');
+  }
+
   try {
     const place = await Place.findOne({ name: new RegExp(`^${destination}$`, 'i') });
     if (!place) {
-      req.flash('error', `Sorry, we don't have data for "${destination}". Please try another place.`);
+      req.flash('error', `Sorry, we don't have data for "${destination}".`);
       return res.redirect('/ai');
     }
 
     const cleanCity = place.name.split(',')[0].trim();
     const weatherData = await getWeather(cleanCity);
+    if (weatherData.error) {
+      req.flash('error', weatherData.error);
+      return res.redirect('/ai');
+    }
 
     const prompt = `Plan a ${days}-day ${category} trip to ${place.name}, ${place.country} with a ${budget} budget.
 The 5-day weather forecast is: ${JSON.stringify(weatherData.forecast)}.
@@ -119,38 +148,40 @@ Return ONLY valid JSON (no explanations). Format:
 
     const model = genAI.getGenerativeModel({ model: "models/gemini-2.0-flash" });
     const result = await model.generateContent(prompt);
-    let geminiResponseText = result.response.text().trim();
-
-    const jsonStart = geminiResponseText.indexOf("{");
-    const jsonEnd = geminiResponseText.lastIndexOf("}");
-    geminiResponseText = geminiResponseText.substring(jsonStart, jsonEnd + 1);
+    const geminiResponseText = result.response.text().trim();
 
     let itineraryData;
     try {
-      itineraryData = JSON.parse(geminiResponseText);
+      itineraryData = extractJSON(geminiResponseText);
     } catch {
       req.flash('error', 'Gemini returned invalid JSON. Please try again.');
       return res.redirect('/ai');
     }
 
+    // Add photos in parallel
     for (const day of itineraryData.days) {
-      for (const act of day.activities) act.photo = await getPhotoUrl(`${act.name} ${place.name}`);
-      for (const food of day.foodSuggestions) food.photo = await getPhotoUrl(`${food.name} ${place.name}`);
-      if (day.hotelSuggestion?.name) day.hotelSuggestion.photo = await getPhotoUrl(`${day.hotelSuggestion.name} ${place.name}`);
+      await addPhotos(day.activities, place.name);
+      await addPhotos(day.foodSuggestions, place.name);
+      if (day.hotelSuggestion?.name) {
+        day.hotelSuggestion.photo = await getPhotoUrl(`${day.hotelSuggestion.name} ${place.name}`);
+      }
     }
 
     res.render('trip-result', { place, itineraryData, weatherData });
 
   } catch (err) {
+    console.error(err);
     req.flash('error', 'Failed to generate trip plan. Please try again.');
     res.redirect('/ai');
   }
 });
 
 router.get('/weather', async (req, res) => {
-  const { city } = req.query;
+  const city = req.query.city;
   const cleanCity = city?.split(',')[0].trim();
   const data = await getWeather(cleanCity);
+
+  if (data.error) return res.status(400).json({ error: data.error });
   res.json({ forecast: data.forecast });
 });
 
