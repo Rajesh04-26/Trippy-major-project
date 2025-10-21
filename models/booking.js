@@ -9,7 +9,7 @@ const bookingSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Assuming you use passport for auth
+    ref: "User", 
     required: true,
   },
   adults: { type: Number, default: 0 },
