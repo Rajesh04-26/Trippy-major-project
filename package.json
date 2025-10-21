@@ -9,10 +9,17 @@
   "author": "Rajesh Kumar Singh",
   "type": "commonjs",
   "main": "app.js",
+<<<<<<< HEAD
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
   },
+=======
+"scripts": {
+  "start": "node app.js",
+  "dev": "nodemon app.js"
+},
+>>>>>>> 5001954 (Final Commit)
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
     "@mapbox/mapbox-sdk": "^0.16.1",
