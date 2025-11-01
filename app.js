@@ -101,6 +101,16 @@ app.get("/", async (req, res) => {
   }
 });
 
+// About page
+app.get("/about", (req, res) => {
+  res.render("about.ejs");
+});
+
+// Contact page
+app.get("/contact", (req, res) => {
+  res.render("contact.ejs");
+});
+
 // Routes
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);

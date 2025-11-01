@@ -1,7 +1,7 @@
 /* Navbar */
     .navbar {
       height: 5rem;
-      background-color: rgba(0, 0, 0, 0.84);
+      background-color: rgba(0, 0, 0, 0.954);
       backdrop-filter: blur(10px);
       z-index: 1030;
       padding: 0 2rem;
@@ -87,7 +87,7 @@
 
     .trip-form-wrapper h2 {
       font-weight: 700;
-      color: #74ebeb;
+      color: #0859c9;
       margin-bottom: 1.5rem;
     }
 
@@ -106,7 +106,7 @@
     }
 
     .form-control:focus {
-      border-color: #00ffff;
+      border-color: #0859c9;
       background: rgba(255, 255, 255, 0.15);
       box-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
     }
@@ -116,7 +116,7 @@
     }
 
     .btn-primary {
-      background: linear-gradient(90deg, #00ffff, #00b3b3);
+      background: linear-gradient(90deg, #0051ff, #0b5de2);
       border: none;
       border-radius: 0;
       color: #000;
@@ -126,7 +126,7 @@
     }
 
     .btn-primary:hover {
-      background: #00b3b3;
+      background: #2003c7;
       transform: translateY(-2px);
     }
 

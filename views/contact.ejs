@@ -1,0 +1,95 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="/css/contact.css">
+  
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md sticky-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/"><i class="fa-solid fa-plane-departure"></i> Trippy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="/listings">Explore</a>
+        <a class="nav-link" href="/ai">AI Trip Planner</a>
+        <a class="nav-link" href="/about">About Us</a>
+        <a class="nav-link" href="/contact">Contact</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Contact Hero Section with Image and Quote -->
+<section class="contact-hero-section">
+  <div class="contact-hero-content">
+    <h1>Connect With Trippy</h1>
+    <p>We're here to help you plan your next adventure. Reach out with any questions, feedback, or special requests.</p>
+    <p class="quote">"The world is a book and those who do not travel read only one page."</p>
+    <p class="quote-author">— Saint Augustine</p>
+  </div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="contact-form-section">
+  <div class="container">
+    <div class="contact-form-wrapper">
+        <h2 class="text-center text-white mb-4">Send Us a Message</h2>
+        <form action="/contact/send" method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Your full name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="your@email.com" required>
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" id="subject" name="subject" class="form-control" placeholder="Message subject" required>
+            </div>
+            <div class="mb-4">
+                <label for="message" class="form-label">Message</label>
+                <textarea id="message" name="message" rows="6" class="form-control" placeholder="Type your message..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Send Message</button>
+        </form>
+
+        <div class="contact-info row text-center justify-content-center mt-5">
+            <div class="col-md-4 col-sm-12 info-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <strong>Our Location</strong>
+                    <p>123 Dreamy Lane, Serene City, LS 78901</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 info-item">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email Us</strong>
+                    <p>info@trippy.com</p>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 info-item">
+                <i class="fas fa-phone-alt"></i>
+                <div>
+                    <strong>Call Us</strong>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-modern-ejs text-white text-center">
+  <div class="container">
+    <h4><i class="fa-solid fa-plane-departure"></i> Trippy</h4>
+    <p>Where dreams take flight. Let’s plan your next unforgettable journey.</p>
+    <p>&copy; 2025 Trippy Private Limited. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
