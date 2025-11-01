@@ -53,7 +53,7 @@ app.use(methodOverride("_method"));
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: { secret: process.env.SECRET },
-  touchAfter: 24 * 3600, // update only once per day
+  touchAfter: 24 * 3600, 
 });
 
 store.on("error", (err) => console.error("Mongo Session Store Error:", err));

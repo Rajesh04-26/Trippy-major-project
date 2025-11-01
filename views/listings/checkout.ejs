@@ -42,12 +42,12 @@
 
   async function fetchRates() {
     try {
-      const res = await fetch('https://open.er-api.com/v6/latest/INR'); // Free API
+      const res = await fetch('https://open.er-api.com/v6/latest/INR'); 
       const data = await res.json();
       return data.rates;
     } catch (err) {
       console.error("Currency API error:", err);
-      return { USD: 0.012, EUR: 0.011, GBP: 0.0095, INR: 1 }; // fallback
+      return { USD: 0.012, EUR: 0.011, GBP: 0.0095, INR: 1 }; 
     }
   }
 

@@ -9,7 +9,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || process.env.A
 const UNSPLASH_KEY = process.env.UNSPLASH_ACCESS_KEY;
 const WEATHER_KEY = process.env.WEATHER_API_KEY;
 
-// Helper: Fetch photo URL from Unsplash or fallback to Wikipedia
+// Fetch photo URL from Unsplash or fallback to Wikipedia
 async function getPhotoUrl(query) {
   try {
     const res = await axios.get('https://api.unsplash.com/search/photos', {
@@ -31,7 +31,7 @@ async function getPhotoUrl(query) {
   return null;
 }
 
-// Helper: Fetch 5-day weather forecast
+// Fetch 5-day weather forecast
 async function getWeather(city) {
   if (!city || city.trim() === "") return { error: "City not provided." };
 
@@ -80,14 +80,14 @@ async function getWeather(city) {
   }
 }
 
-// Helper: Extract JSON from Gemini response
+// Extract JSON from Gemini response
 function extractJSON(text) {
   const match = text.match(/\{[\s\S]*\}/);
   if (!match) throw new Error("No JSON found in Gemini response");
   return JSON.parse(match[0]);
 }
 
-// Helper: Add photos to array of items in parallel
+// Add photos to array of items in parallel
 async function addPhotos(items, placeName) {
   await Promise.all(items.map(async item => {
     item.photo = await getPhotoUrl(`${item.name} ${placeName}`);

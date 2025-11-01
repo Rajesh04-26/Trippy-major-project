@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600&display=swap");
 
-/* ---------- Base Page ---------- */
+/* Base Page */
 body {
   background: radial-gradient(circle at top right, #050505, #000);
   margin: 0;
@@ -14,7 +14,7 @@ body {
   position: relative;
 }
 
-/* ---------- Animated Glowing Background ---------- */
+/* Animated Glowing Background */
 body::before {
   content: "";
   position: absolute;
@@ -22,7 +22,7 @@ body::before {
   height: 180%;
   top: -40%;
   left: -40%;
-  background: radial-gradient(circle at 30% 30%, rgba(0, 140, 255, 0.25), transparent 70%);
+  background: radial-gradient(circle at 30% 30%, rgba(0, 140, 255, 0.107), transparent 70%);
   animation: spinGlow 15s linear infinite;
   z-index: 0;
   pointer-events: none;
@@ -33,7 +33,7 @@ body::before {
   100% { transform: rotate(360deg); }
 }
 
-/* ---------- Page Containers ---------- */
+/* Page Containers */
 .login-page-container,
 .signup-page-container {
   position: relative;
@@ -56,10 +56,10 @@ body::before {
   }
 }
 
-/* ---------- Cards ---------- */
+/* Cards */
 .login-card,
 .signup-card {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.14);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8);
@@ -96,7 +96,7 @@ body::before {
   color: #fff;
 }
 
-/* ---------- Form ---------- */
+/* Form */
 form {
   display: flex;
   flex-direction: column;
@@ -113,8 +113,8 @@ form {
 
 .form-control {
   width: 100%;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(0, 140, 255, 0.3);
+  background: rgba(255, 255, 255, 0.148);
+  border: 1px solid rgba(0, 140, 255, 0.116);
   color: #fff;
   font-size: 0.95rem;
   padding: 0.75rem 1rem;
@@ -124,17 +124,17 @@ form {
 
 .form-control:focus {
   background: rgba(255, 255, 255, 0.1);
-  border-color: #008cff;
-  box-shadow: 0 0 15px rgba(0, 140, 255, 0.5);
+  border-color: #031727;
+  box-shadow: 0 0 15px rgba(0, 140, 255, 0.131);
   outline: none;
 }
 
-/* ---------- Add space between last input and button ---------- */
+/* Add space between last input and button */
 form .form-control:last-of-type {
   margin-bottom: 1.5rem; 
 }
 
-/* ---------- Feedback Messages ---------- */
+/* Feedback Messages */
 .invalid-feedback,
 .valid-feedback {
   display: none;
@@ -154,7 +154,7 @@ form .form-control:last-of-type {
   color: #2ecc71;
 }
 
-/* ---------- Submit Button ---------- */
+/* Submit Button */
 .btn-success {
   width: 100%;
   background: linear-gradient(90deg, #008cff, #1b64f5);
@@ -176,7 +176,7 @@ form .form-control:last-of-type {
   filter: brightness(1.1);
 }
 
-/* ---------- Links ---------- */
+/* Links */
 .text-center {
   text-align: center;
 }
@@ -193,7 +193,7 @@ a:hover {
   text-decoration: underline;
 }
 
-/* ---------- Responsive ---------- */
+/* Responsive */
 @media (max-width: 480px) {
   .login-card,
   .signup-card {

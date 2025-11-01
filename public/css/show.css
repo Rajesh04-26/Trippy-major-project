@@ -1,4 +1,4 @@
-/* ------------------- Listing Card Container ------------------- */
+/* Listing Card Container */
 .show-card {
   display: flex;
   flex-direction: row;
@@ -12,7 +12,7 @@
   align-items: flex-start;
 }
 
-/* ------------------- Left Column ------------------- */
+/* Left Column */
 .left-col {
   flex: 0 0 420px;
   display: flex;
@@ -20,7 +20,7 @@
   gap: 15px;
 }
 
-/* ------------------- Right Column: Gallery ------------------- */
+/* Right Column: Gallery */
 .right-col {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -46,7 +46,7 @@
   margin-bottom: 5px;
 }
 
-/* ------------------- Listing Info ------------------- */
+/* Listing Info */
 .card-body {
   text-align: left;
 }
@@ -70,7 +70,7 @@
   margin-bottom: 5px;
 }
 
-/* ------------------- Buttons ------------------- */
+/* Buttons */
 .btns {
   display: flex;
   gap: 10px;
@@ -96,7 +96,7 @@
   font-weight: 500;
 }
 
-/* ================= Container ================= */
+/* Container */
 .info-tabs-container {
   margin-top: 30px;
   background: #fff;
@@ -106,7 +106,7 @@
   border: 1px solid #ddd;
 }
 
-/* ================= Tabs Row ================= */
+/* Tabs Row */
 .info-tabs {
   display: flex;
   justify-content: space-evenly;
@@ -148,7 +148,7 @@
   color: #000;
 }
 
-/* ================= Content Section ================= */
+/* Content Section */
 .info-content {
   padding: 20px;
   background: #fff;
@@ -174,7 +174,7 @@
   }
 }
 
-/* ================= Itinerary Cards ================= */
+/* Itinerary Cards */
 #itinerary .border {
   border: 1px solid #ddd !important;
   border-radius: 10px;
@@ -214,7 +214,7 @@
   margin-right: 5px;
 }
 
-/* ================= Inclusion / Exclusion Lists ================= */
+/* Inclusion / Exclusion Lists */
 .tab-content ul {
   padding-left: 0;
   list-style: none;
@@ -244,7 +244,7 @@
   margin-right: 8px;
 }
 
-/* ------------------- Review Card ------------------- */
+/* Review Card */
 .review-card {
   background-color: #fff;
   border-radius: 12px;
@@ -263,7 +263,7 @@
   margin-bottom: 5px;
 }
 
-/* ------------------- Star Rating ------------------- */
+/* Star Rating */
 #starRating .star {
   font-size: 3rem; 
   cursor: pointer;   
@@ -283,7 +283,7 @@
   gap: 10px;
 }
 
-/* ------------------- Delete Button ------------------- */
+/* Delete Button */
 .delete-btn {
   background-color: #000;
   color: #fff;
@@ -296,7 +296,7 @@
   background-color: #007bff; 
 }
 
-/* ------------------- Map Section ------------------- */
+/* Map Section */
 #map {
   width: 700px;
   height: 300px;
@@ -304,7 +304,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* ------------------- Responsive ------------------- */
+/* Responsive */
 @media (max-width: 1200px) {
   .left-col {
     flex: 0 0 350px;
